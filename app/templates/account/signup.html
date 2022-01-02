@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load account socialaccount %}
+{% load socialaccount %}
+{% providers_media_js %}
+
+{% block content %}
+  <div class="content-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="card col-sm-6 offset-sm-3">
+          <div class="card-body">
+            <h1 class="card-title text-center" style="font-family: 'Pacifico', cursive;">Pictoforio</h1>
+            <h5 class="card-subtitle text-muted mt-3 text-center">登録して写真でつながろう</h5>
+            <br>
+            <div class="card-text">
+              <div class="py-3">
+                <a href="{% provider_login_url "google" %}" class="btn btn-block btn-social btn-google"
+                   style="text-align: center">
+                  <i class="fab fa-google" style="height: auto"></i>Googleでログイン
+                </a>
+              </div>
+              <div class="text-line d-flex align-items-center">
+                <p class="mb-0 text-muted"><small>または</small></p>
+              </div>
+              <form class="signup py-3" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                {#            {% bootstrap_form form show_label=False %}#}
+                {% bootstrap_field form.email show_label=False placeholder='example@mail.com' %}
+                {% bootstrap_field form.password1 show_label=False %}
+                {% bootstrap_field form.password2 show_label=False %}
+                {% if redirect_field_value %}
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+                <button type="submit" class="btn btn-block btn-primary" name="button">登録</button>
+              </form>
+              <hr class="">
+              <div class="card-text">
+                <p class="mb-0 text-right"><small>登録済みの方は：<a href="{% url 'account_login' %}">ログインページ</a></small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

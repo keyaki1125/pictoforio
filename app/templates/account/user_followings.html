@@ -1,0 +1,64 @@
+<table id='post_list' class="table table-bordered table-hover">
+  <tbody>
+  {# following_list：お気に入り登録しているユーザーのリスト #}
+  {% for follow in target_user_follows %}
+    <tr class="text-center">
+      <td class="align-middle p-1">
+        {# ユーザーがプロフィール画像を持っている場合#}
+        {% if follow.avatar %}
+          <img class="img-thumbnail mx-auto d-block" src="{{ follow.avatar.url }}"
+               id="avatar-thumbnail" alt="avatar_thumbnail" width="60px" style="border-radius: 50%;">
+          {# ユーザーがプロフィール画像を持ってない場合はfont-awesomeの画像を表示#}
+        {% else %}
+          <i class="far fa-meh img-thumbnail mx-auto d-block" style="width: 60px;border-radius: 50%;"></i>
+        {% endif %}
+      </td>
+      <td class="text-left align-middle">
+        <a class="text-reset font-weight-bold"
+           href="{% url 'myAccount:user_detail' pk=follow.pk %}">{{ follow.username|slice:':5' }}***さん</a>
+      </td>
+      <td class="align-middle">
+        <p class="mb-0">
+          <i class="fas fa-pen"></i>：<span
+            class="badge badge-pill badge-secondary">{{ follow.post_set.all.count }}</span>
+        </p>
+        <p class="mb-0">
+          <i class="fas fa-camera"></i>：<span
+            class="badge badge-pill badge-secondary">{{ follow.picture_set.all.count }}</span>
+        </p>
+      </td>
+      <td class="align-middle">
+        {% if follow != user %}
+          <form action="{% url 'myAccount:follow' %}" id="follow-form">
+            {% csrf_token %}
+            {# ユーザー（item）がfollowlingリストにある場合（お気に入り登録されている場合#}
+            {% if follow in my_follows %} {# my_follows = target_user_follows #}
+              <button id="follow" name="{{ follow.id }}-follow-btn" type="submit"
+                      class="btn btn-outline-danger btn-sm">
+                Follow中
+              </button>
+            {% else %}
+              <button id="follow" name="{{ follow.id }}-follow-btn" type="submit"
+                      class="btn btn-outline-primary btn-sm">
+                Followする
+              </button>
+            {% endif %}
+          </form>
+          {#          {% include 'account/follow_base.html' %}#}
+        {% endif %}
+      </td>
+    </tr>
+  {% empty %}
+    <p class="text-center">まだ誰もフォローしていません。</p>
+    <div class="text-center">
+      <a class="btn btn-primary" href="{% url 'myAccount:user_list' %}" role="button">
+        ユーザーをフォローして
+        <br>
+        フィードに表示させよう！</a>
+    </div>
+
+  {% endfor %}
+  </tbody>
+  <!-- ここまでが表のデータ部分の表示-->
+</table>
+<!-- ここまでがテーブル表の定義 -->

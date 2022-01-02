@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}メールアドレス{% endblock %}
+
+{% block content %}
+  <div class="content-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+{#          {% if messages %}#}
+{#            {% for message in messages %}#}
+              {#              message/tagsはSettings.pyで設定している#}
+{#              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>#}
+{#                {{ message }}#}
+{#              </li>#}
+{#            {% endfor %}#}
+{#          {% endif %}#}
+          <div class="card">
+            <div class="card-header">
+              <h4><b>メールアドレス変更</b></h4>
+            </div>
+            <div class="card-body">
+              {% if can_add_email %}
+                {% for emailaddress in user.emailaddress_set.all %}
+                  {% if emailaddress.verified %}
+                    <p>現在、登録されているメールアドレス</p>
+                    <p>{{ emailaddress.email }}</p>
+                  {% endif %}
+                {% endfor %}
+                <form method="post" action="{% url 'account_email' %}" class="add_email">
+                  {% csrf_token %}
+                  {% bootstrap_form form %}
+                  <p>メールアドレスを所有していることを確認するためにメールが送信されます。確認が完了するとメールアドレスが更新されます。</p>
+                  <button name="action_add" type="submit" class="btn btn-primary">確認メールを送信</button>
+                </form>
+              {% else %}
+                <p>入力したメールアドレス宛に確認メールを送信しました。リンクをクリックしてメールアドレスを確認してください。</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="content-wrapper">
+    <div class="container-md">
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="card">
+            <div class="card-header">
+              <h4><b>投稿編集</b></h4>
+            </div>
+            <div class="card-body">
+              <form class="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form post_form %}
+                {#                <div id="picture-area">#}
+                {#                  {{ formset.management_form }}#}
+                {#                  {% bootstrap_formset formset show_label=False %}#}
+                {#                </div>#}
+
+                {#                {% bootstrap_form picture_form show_label=False form_group_class='form-group img-input' %}#}
+                {#                                {% bootstrap_field picture_form.picture show_label=False form_group_class='form-group img-input' field_class='custom-file' %}#}
+                <div class="form-group img-input row">
+                  <div id="file" class="input-group py-3 col col-lg-8">
+                    <div class="custom-file">
+                      <input type="file" id="id_picture" class="custom-file-input" name="picture" title required
+                             multiple/>
+                      <label class="custom-file-label" for="id_picture" data-browse="参照">ファイル選択...</label>
+                    </div>
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-outline-secondary reset">取消</button>
+                    </div>
+                  </div>
+                  <div id="preview" class="form-row">
+                    {% for picture in picture_list %}
+                    <div class="col-15">
+                      <img class="img-thumbnail" src="{{ picture.picture.url }}" title="{{ picture.picture.name }}" style="" />
+                      <div class="small text-muted text-center">{{ picture.picture.name }}</div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  {#                  <div class="input-group">#}
+                  {#                    <div class="custom-file">#}
+                  {#                      <input type="file" name="picture" multiple="" accept="image/*" class="custom-file-input" title=""#}
+                  {#                             required="" id="id_picture" style="cursor: pointer">#}
+                  {#                      <label for="id_picture" class="custom-file-label" data-browse="参照">ファイルを選べ</label>#}
+                  {#                    </div>#}
+                  {#                    <div class="input-group-append">#}
+                  {#                      <button type="button" class="btn btn-outline-secondary input-group-text" id="inputFileReset">取消#}
+                  {#                      </button>#}
+                  {#                    </div>#}
+                  {#                  </div>#}
+                </div>
+                {#                <div class="image-preview form-row pb-3">#}
+                {#                  <!-- ここで画像をプレビューする -->#}
+                {#                </div>#}
+
+                {#                  {% for picture_form in formset %}#}
+                {#                    {{ picture_form.as_p }}#}
+                {#                    <hr>#}
+                {#                  {% endfor %}#}
+                {#                {% bootstrap_button '画像を追加' button_type='button' button_class='btn btn-primary' %}#}
+                {#                {% bootstrap_button '投稿する' button_type='submit' button_class='btn btn-outline-primary btn-block' %}#}
+                {#                <button class="btn btn-primary mb-3" id="add" type="button">画像を追加</button>#}
+                <button type="submit" class="btn btn-outline-primary btn-block">投稿する</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+  <script>
+      $(document).ready(function () {
+          $('.custom-file-input').on('change', handleFileSelect);
+
+          function handleFileSelect(evt) {
+              $('#preview').remove();// 繰り返し実行時の処理
+              $(this).parents('.input-group').after('<div id="preview" class="form-row"></div>');
+
+              var files = evt.target.files;
+              if (files.length <= 5) {
+                  for (var i = 0, f; f = files[i]; i++) {
+                      var reader = new FileReader();
+                      reader.onload = (function (theFile) {
+                          return function (e) {
+                              if (theFile.type.match('image.*')) {
+                                  var $html = ['<div class="col-15"><img class="img-thumbnail" src="', e.target.result, '" title="', escape(theFile.name), '" style="" /><div class="small text-muted text-center">', escape(theFile.name), '</div></div>'].join('');// 画像では画像のプレビューとファイル名の表示
+                              } else {
+                                  var $html = ['<div class="d-inline-block mr-1"><span class="small">', escape(theFile.name), '</span></div>'].join('');//画像以外はファイル名のみの表示
+                              }
+
+                              $('#preview').append($html);
+                          };
+                      })(f);
+
+                      reader.readAsDataURL(f);
+                  }
+                  $(this).next('.custom-file-label').html(+files.length + '個のファイルを選択しました');
+              } else {
+                  $('.custom-file-label').html('ファイル選択...');
+                  $('.custom-file-input').val('');
+                  alert('画像の投稿は5枚までです');
+              }
+          }
+
+          //ファイルの取消
+          $('.reset').click(function () {
+              $(this).parent().prev().children('.custom-file-label').html('ファイル選択...');
+              $('#preview').remove();
+              $('.custom-file-input').val('');
+          })
+          {#console.log('ready OK')#}
+          {#    bsCustomFileInput.init();#}
+          {#    $('#inputFileReset').on('click', function () {#}
+          {#        console.log('clicked!');#}
+          {#        let element = $('#id_picture');#}
+          {#        console.log(element.val());#}
+          {#        element.val('');#}
+          {#        console.log(element.val());#}
+          {#        element.trigger('change');#}
+          {#        console.log('triggered!');#}
+          {#    });#}
+          {##}
+          {#    let imgInput = $('#id_picture')#}
+          {#    imgInput.off('change').on('change', function (event) {#}
+          {#        console.log('changed!!')#}
+          {#        let previewArea = $('.image-preview')#}
+          {#        if (event.target.files && event.target.files[0]) {#}
+          {#            previewArea.empty();#}
+          {#            let files = event.target.files;#}
+          {#            if (files.length <= 5) {#}
+          {#                for (let i = 0; i < files.length; i++) {#}
+          {#                    let file = files[i];#}
+          {#                    let reader = new FileReader();#}
+          {#                    reader.onload = function (event) {#}
+          {#                        console.log(event.target.result.substr(0, 100))#}
+          {#                        previewArea.append(`#}
+          {#                            <div class="col-15 align-self-center">#}
+          {#                              <img class="img-fluid" src="${event.target.result}" alt="">#}
+          {#                            </div>`)#}
+          {#                    };#}
+          {#                    reader.readAsDataURL(file);#}
+          {#                }#}
+          {#            } else {#}
+          {#                imgInput.val('');#}
+          {#                alert('画像の投稿は5枚までです');#}
+          {#                $('.img-input').append('<p>画像の投稿は5枚までです</p>');#}
+          {#            }#}
+          {#        }#}
+          {#    });#}
+      });
+  </script>
+{#    <script>#}
+{#        $(function () {#}
+{#            var totalManageElement = $('input#id_picture_set-TOTAL_FORMS');#}
+{#            var currentPictureCount = parseInt(totalManageElement.val());#}
+{#            var maxCountElement = $('input#id_picture_set-MAX_NUM_FORMS');#}
+{#            var maxCount = parseInt(maxCountElement.val());#}
+{#            $('button#add').on('click', function () {#}
+{#                if (currentPictureCount < maxCount) {#}
+{#                    var fileElement = $('<input>', {#}
+{#                        type: 'file',#}
+{#                        "class": 'form-control-file',#}
+{#                        name: 'picture_set-' + currentPictureCount + '-picture',#}
+{#                        id: 'id_picture_set-' + currentPictureCount + '-picture',#}
+{#                    });#}
+{#                    var checkboxElement = $('<input>', {#}
+{#                        type: 'checkbox',#}
+{#                        "class": 'form-check-input',#}
+{#                        name: 'picture_set-' + currentPictureCount + '-DELETE',#}
+{#                        id: 'id_picture_set-' + currentPictureCount + '-DELETE',#}
+{#                    });#}
+{#                    var checkboxLabel = $('<label>', {#}
+{#                        "class": 'form-check-label',#}
+{#                        for: 'id_picture_set-' + currentPictureCount + '-DELETE',#}
+{#                        text: '削除',#}
+{#                    });#}
+{##}
+{#                    var formGroup = $('<div></div>', {'class': 'form-group'});#}
+{#                    var formCheck = $('<div></div>', {'class': 'form-check'});#}
+{#                    var nestedFileElement = formGroup.clone().append(fileElement);#}
+{#                    var nestedCheckboxElement = formGroup.clone().append(formCheck);#}
+{#                    nestedCheckboxElement.children('.form-check').append(checkboxElement, checkboxLabel);#}
+{#                    $('div#picture-area').append(nestedFileElement);#}
+{#                    $('div#picture-area').append(nestedCheckboxElement);#}
+{##}
+{#                    currentPictureCount += 1;#}
+{#                    totalManageElement.attr('value', currentPictureCount);#}
+{#                } else {#}
+{#                    alert('画像は5枚まで！')#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+
+  {#  {{ picture_form.media }}#}
+{% endblock %}

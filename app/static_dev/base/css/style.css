@@ -1,0 +1,270 @@
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.content-wrapper {
+    margin-bottom: 100px;
+}
+
+.footer {
+position: absolute;
+bottom: 0;
+width: 100%;
+/* Set the fixed height of the footer here */
+/*height: 60px;*/
+/*background-color: #f5f5f5;*/
+}
+
+.hover-img {
+    position: relative;
+    background-color: #1b1b1b;
+    /*color: #fff;*/
+}
+
+.hover-img img {
+    opacity: 1;
+    transition: .2s ease-in-out;
+}
+
+.hover-img:hover img {
+    opacity: .5;
+    filter: blur(2px);
+}
+
+/*.hover-img a {*/
+/*    !*z-index: 2;*!*/
+/*}*/
+
+.like-icon {
+    position: absolute;
+    /*width: 100%;*/
+    /*height: 100%;*/
+    top: 87%;
+    left: 4%;
+    color: #ffffff;
+    /*background-color: rgba(0, 0, 0, 0.65);*/
+    /*透明にして表示させない*/
+    opacity: .7;
+    /*ホバーの動き方*/
+    /*transition: .2s ease-in-out;*/
+    /*z-index: 1;*/
+    /*pointer-events: none;*/
+}
+
+.file-icon {
+    position: absolute;
+    color: #ffffff;
+    top: 5%;
+    left: 90%;
+    opacity: .7;
+}
+
+/*.hover-text:hover {*/
+/*    opacity: 1;*/
+/*}*/
+
+/*!*.hover-img img:hover {*!*/
+/*!*    filter: blur(3px);*!*/
+/*!*}*!*/
+
+/*.hover-text:hover {*/
+/*    opacity: 1;*/
+/*}*/
+
+.sliderArea {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 25px;
+}
+
+.slick-slide img {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: black;
+}
+
+.slick-next {
+    right: 35px;
+    z-index: 99;
+}
+
+.slick-prev {
+    left: 35px;
+    z-index: 100;
+}
+
+.col-15, .col-sm-15, .col-md-15, .col-lg-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%;
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}
+
+@media (min-width: 768px) {
+    .col-sm-15 {
+        width: 20%;
+        flex: 0 0 20%;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 20%;
+        flex: 0 0 20%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-15 {
+        width: 20%;
+        flex: 0 0 20%;
+    }
+}
+
+.col-15 {
+    width: 20%;
+    flex: 0 0 20%;
+}
+
+.btn-circle {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.btn-circle i {
+    position: relative;
+    top: -1px;
+}
+
+.btn-circle-sm {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 0.9rem;
+}
+
+.btn-circle-lg {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    font-size: 1.1rem;
+}
+
+.btn-circle-xl {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    font-size: 1.3rem;
+}
+
+.custom-file {
+    max-width: 20rem;
+    overflow: hidden;
+}
+
+.custom-file-label {
+    white-space: nowrap;
+}
+
+.custom-file-input {
+    cursor: pointer;
+}
+
+.text-line:before {
+    content: "";
+    flex-grow: 1;
+    height: 1px; /* 線の太さ */
+    background: #000; /* 線の色 */
+    margin: 0 1em 0 0; /* 文字と線の余白 */
+    opacity: .1;
+}
+
+.text-line:after {
+    content: "";
+    flex-grow: 1;
+    height: 1px; /* 線の太さ */
+    background: #000; /* 線の色 */
+    margin: 0 0 0 1em; /* 文字と線の余白 */
+    opacity: .1;
+}
+
+/*.tooltip-inner {*/
+/*    background-color: #FFFFFF;*/
+/*}*/
+
+.activity-li {
+    position: relative;
+}
+.activity-popup-wrapper {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    /*right: 70px;*/
+    top: 40px;
+    left: -100px;
+
+}
+
+.activity-popup {
+    position: relative;
+    display: inline-block;
+    margin: 1.5em 0;
+    padding: 7px 10px;
+    min-width: 120px;
+    /*max-height: 5vh;*/
+    /*overflow-y: auto;*/
+    width: 250px;
+    color: #555;
+    font-size: 16px;
+    background: #FFF;
+    border: solid 1px #555;
+    border-radius: 5%;
+    box-sizing: border-box;
+
+}
+
+.activity-popup:before {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    top: -24px;
+    left: 50%;
+    margin-left: -15px;
+    border: 12px solid transparent;
+    border-radius: 5%;
+    border-bottom: 12px solid #FFF;
+    z-index: 5;
+}
+
+.activity-popup:after {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    top: -28px;
+    left: 50%;
+    margin-left: -17px;
+    border: 14px solid transparent;
+    border-radius: 5%;
+    border-bottom: 14px solid #555;
+    z-index: 4;
+}

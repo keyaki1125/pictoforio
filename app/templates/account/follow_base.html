@@ -1,0 +1,13 @@
+<form action="{% url 'myAccount:follow' %}" id="follow-form">
+    {% csrf_token %}
+    {# ユーザー（item）がfollowlingリストにある場合（お気に入り登録されている場合#}
+    {% if user in my_follows %}
+      <button id="follow" name="{{ target_user.id }}-follow-btn" type="submit" class="btn btn-outline-danger btn-sm">
+        Follow中
+      </button>
+    {% else %}
+      <button id="follow" name="{{ target_user.id }}-follow-btn" type="submit" class="btn btn-outline-primary btn-sm">
+        Followする
+      </button>
+    {% endif %}
+  </form>

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="content-wrapper">
+    {#    <div class="container-fluid">#}
+{#    <div class="jumbotron text-center" style="background-color: #ffa07a;">#}
+{#      <h1 class="display-4 font-">#}
+{#        <small>Welcome to </small><span style="font-family: 'Pacifico', cursive;">Pictoforio</span>#}
+{#      </h1>#}
+{#      <p class="lead">Pictoforio(ピクトフォリオ)は写真を通じて繋がるSNSサイトです。<br>あなたの写真をみんなとシェアしよう！</p>#}
+      {#        <hr class="my-4">#}
+      {#        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>#}
+      {#        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>#}
+{#    </div>#}
+    {#    </div>#}
+    <div class="container">
+      {% if post_list %}
+        <div class="grid-index">
+          <div class="grid-sizer col-6 col-lg-4 pb-3 px-2"></div>
+          {% for post in post_list %}
+            <div class="grid-item col-6 col-lg-4 pb-3 px-2">
+              <div class="card">
+                <div class="card-header bg-transparent py-2">
+                  {#                  <p class="card-text fw-bold ">#}
+                  <a class="text-decoration-none text-reset font-weight-bold"
+                     href="{% url 'myAccount:user_detail' pk=post.owner.pk %}">
+                    {% if post.owner.nickname %}
+                      {{ post.owner.nickname }}
+                    {% else %}
+                      {{ post.owner.username|slice:':5' }}***さん
+                    {% endif %}
+                  </a>
+                  {#                  </p>#}
+                </div>
+                {# postからpictureを逆引きした一件目だけ取得。その中のpictureカラムのurl属性を取得 #}
+                {# styleはcssに外だしする予定 #}
+                <div class="hover-img">
+                  <a href="{% url 'board:post_detail' pk=post.id %}">
+                    <img src="{{ post.picture_set.first.picture.url }}" alt="" class="card-img-top img-fluid">
+                  </a>
+                  <h6 class="like-icon">
+                    <i class="fas fa-heart align-center like-red"></i> {{ post.like_set.count }}
+                  </h6>
+                  {% if post.picture_set.all.count > 1 %}
+                    <h6 class="file-icon">
+                      <i class="fas fa-clone align-center"></i>
+                    </h6>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="row">
+          <div class="col-md-8 offset-md-2 text-center">
+            <br>
+            <p class="lead">現在、フォロー中のユーザーはいません</p>
+            <br>
+            <a class="btn btn-primary btn-block" href="{% url 'myAccount:user_list' %}" role="button">ユーザーをフォローして
+              <br>
+              フィードに表示させよう！</a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+  {% load static %}
+  <script src="{% static 'base/js/csrf_token.js' %}"></script>
+  <script src="{% static 'board/js/ajax_like.js' %}"></script>
+  <script src="{% static 'board/js/ajax_post_search.js' %}"></script>
+  <script>
+      $(function () {
+          $('.grid-index').imagesLoaded(function () { //imagesLoadedを使用し、画像が読み込みまれた段階でMasonryの関数を実行させる
+              $('.grid-index').masonry({
+                  itemSelector: '.grid-item',
+                  columnWidth: '.grid-sizer',
+                  {#horizontalOrder: true,#}
+                  percentPosition: true
+              });
+          });
+      });
+  </script>
+{% endblock %}

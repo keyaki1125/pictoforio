@@ -1,0 +1,48 @@
+# 公式イメージをpull
+#FROM python:3.8.12-alpine
+FROM python:3.9.7-slim-buster
+
+# Pythonがpyc filesとdiscへ書き込むことを防ぐ
+ENV PYTHONDONTWRITEBYTECODE 1
+# Pythonが標準入出力をバッファリングすることを防ぐ
+ENV PYTHONUNBUFFERED 1
+
+# djangoのプロジェクトをコピー先となるディレクトリを作る
+#ENV APP_HOME=/usr/src/app
+ENV APP_HOME=/opt/project/app
+RUN mkdir -p $APP_HOME && \
+    mkdir $APP_HOME/static && \
+    mkdir $APP_HOME/media
+
+# [システムグループapp]を作成、[システムグループapp]に所属する[システムユーザapp]を作成
+#RUN addgroup -S app && adduser -S app -G app
+RUN groupadd app && useradd app -g app
+
+# 作業ディレクトリを移動
+WORKDIR $APP_HOME
+
+# ローカルからpipfile(.lock)をコピー。各種インストール。
+COPY ./Pipfile .
+COPY ./Pipfile.lock .
+#RUN apk update && \
+#    apk add curl postgresql-dev gcc python3-dev musl-dev libpq && \
+#    # pillow installに必要
+#    apk add jpeg-dev zlib-dev libjpeg
+RUN apt update && apt upgrade -y
+RUN apt install -y curl postgresql netcat sudo cmake libgl1-mesa-dev libgtk2.0-dev
+RUN pip install --upgrade pip && \
+    pip install pipenv && \
+    pipenv install --dev --system
+
+# シェルスクリプトファイルをコピー
+COPY ./entrypoint.sh $APP_HOME
+
+COPY . $APP_HOME
+
+# $APP_HOME(-Rを用いてディレクトリ内全て)の所有権をシステムユーザに変更
+RUN chown -R app:app $APP_HOME
+
+# 実行ユーザをappに変更
+USER app
+
+ENTRYPOINT ["/opt/project/app/entrypoint.sh"]

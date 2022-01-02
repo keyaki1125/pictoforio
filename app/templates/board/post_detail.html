@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="content-wrapper">
+    <div class="container-md">
+      <div class="row my-5 d-flex justify-content-center align-items-start">
+        <div class="col-md d-flex justify-content-center ">
+          <div class="row text-center">
+            <div class="main-img col mb-3">
+              <a href="{{ post.picture_set.first.picture.url }}" class="popup-img">
+                <img class="img-fluid card-img-top" src="{{ post.picture_set.first.picture.url }}" alt=""
+                     style="aspect-ratio: 4/3; object-fit: contain;">
+              </a>
+            </div>
+            <div class="w-100"></div>
+            {% for picture in pictures %}
+              <div class="col-15 sub-img align-self-center">
+                <img class="img-fluid" src="{{ picture.picture.url }}" alt="" style="cursor: pointer">
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-md d-flex justify-content-center my-3 my-md-0">
+          <div class="card {% if not post.is_publish %}border-danger{% endif %}" style="width: 100%; ">
+            <div class="card-header py-2 bg-transparent">
+              <div class="row">
+                <div class="col-2 ">
+                  <a class="text-reset" href="{% url 'myAccount:user_detail' pk=post.owner.pk %}">
+                    {% if post.owner.avatar %}
+                      <img class="img-fluid" src="{{ post.owner.avatar.url }}" alt=""
+                           style="border-radius: 50%;width: 80%">
+                    {% else %}
+                      <i class="far fa-meh rounded img-fluid mx-auto d-block"
+                         style="border-radius: 50%; width: 100%"></i>
+                    {% endif %}
+                  </a>
+                </div>
+                <p class="card-text fw-bold col px-0 my-auto">
+                  <a class=" text-reset font-weight-bold"
+                     href="{% url 'myAccount:user_detail' pk=post.owner.pk %}">
+                    {{ post.owner.email|slice:':3' }}***
+                  </a>
+                </p>
+                {% if post.owner == user %}
+                  <div class="col text-right d-flex justify-content-end align-items-center">
+                    <div>
+                      <a class="btn btn-outline-secondary btn-sm"
+                         href="{% url 'board:post_update' pk=post.id %}" role="button"><i class="fas fa-pen"></i></a>
+                      <a class="btn btn-outline-danger btn-sm"
+                         href="{% url 'board:post_delete' pk=post.id %}" role="button"><i
+                          class="fas fa-trash-alt"></i></a>
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="card-body" style="">
+              {% if not post.is_publish %}
+                <div class="card-text"><p class="text-danger">※下書き・非公開記事です</p></div>
+              {% endif %}
+              <div class="text-wrapper card-text" style="overflow-y:hidden">
+                <p class="">{{ post.content | linebreaksbr }}</p>
+              </div>
+              <div class="card-text"><br></div>
+              <div class="card-text row no-gutters align-self-end">
+                <div class="col">
+                  {% include 'board/like.html' %}
+                </div>
+                <p class="col font-weight-light text-right my-auto">
+                  <i class="fas fa-history"></i> {{ post.updated_at|date:'Y/n/j' }}
+                </p>
+              </div>
+            </div>
+            <hr class="mt-0 mb-3">
+            <div class="main-comment-section">
+              {% include 'board/comments.html' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+  {% load static %}
+  {#  <script type="text/javascript">#}
+  {#      $(document).ready(function () {#}
+  {#          $('.regular').slick({#}
+  {#              autoplay: true,#}
+  {#              autoplaySpeed: 4000,#}
+  {#              dots: true#}
+  {#          });#}
+  {#      });#}
+  {#  </script>#}
+  <script>
+      $(function () {
+          $('.sub-img img').on('click', function () {
+              {#console.log('clicked!!')#}
+              img = $(this).attr('src');
+              $('.main-img img').attr('src', img);
+              $('.main-img a').attr('href', img);
+          });
+      });
+  </script>
+  <script>
+      $(function () {
+          $('.popup-img').magnificPopup({
+              type: 'image',
+          });
+      });
+  </script>
+  <script>
+      $(function () {
+          $('.text-wrapper').readmore({
+              speed: 100,
+              collapsedHeight: 75,
+              moreLink: '<a href="#" class="" style="color: #555555">…続きを読む</a>',
+              lessLink: '<a href="#" class="" style="color: #555555">…閉じる</a>'
+          });
+      });
+  </script>
+  <script src="{% static 'base/js/csrf_token.js' %}"></script>
+  <script src="{% static 'board/js/ajax_like.js' %}"></script>
+  <script src="{% static 'board/js/ajax_comments.js' %}"></script>
+  <script src="{% static 'board/js/ajax_comment_delete.js' %}"></script>
+{% endblock %}

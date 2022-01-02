@@ -1,0 +1,24 @@
+<div class="table-responsive">
+  <table id='post_list' class="table table-striped table-bordered table-hover">
+    <!-- 表の列の定義-->
+    {% for post in post_list %}
+      <tr class="text">
+        {# 投稿内容 #}
+        <td class="text" style="width: 80%">
+          <h6><a href="{% url 'board:post_detail' pk=post.id %}">{{ post.owner }}@{{ post.created_at|date:'Y/n/j' }}</a>
+          </h6>{{ post.content }}
+        </td>
+        {# いいね！ #}
+        <td class="text-center align-middle" style="width: 20%">
+          {% include 'board/like.html' %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    <!-- ここまでが表のデータ部分の表示-->
+  </table>
+  <!-- ここまでがテーブル表の定義 -->
+</div>
+{#   django-bootstrap4のページネーション#}
+{#{% bootstrap_pagination page_obj extra=request.GET.urlencode %}#}
+</div>

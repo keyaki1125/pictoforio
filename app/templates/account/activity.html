@@ -1,0 +1,51 @@
+<div class="activity-popup">
+  <div class="row">
+    <div class="col">
+      <a href="" data-href="{% url 'myAccount:activity_watched' %}" id="ajax-activity-watched">
+        <p class="text-right mb-0 mr-2"><small>既読にする</small></p>
+      </a>
+    </div>
+  </div>
+  <ul class="list-unstyled">
+    {% for activity in activities %}
+      <li class="row d-flex align-items-center">
+        <div class="col-3 pr-1">
+          <a class="text-center text-reset" href="{% url 'myAccount:user_detail' pk=activity.action_user.pk %}"
+             role="button"
+             aria-haspopup="true" aria-expanded="false">
+            {% if activity.action_user.avatar %}
+              <img class="img-thumbnail"
+                   src="{{ activity.action_user.avatar.url }}" id="" alt="avatar_image"
+                   style="width: 100%;border-radius: 50%">
+            {% else %}
+              <i class="far fa-meh img-thumbnail" style="width: 100%;border-radius: 50%"></i>
+            {% endif %}
+          </a>
+        </div>
+        <div class="col-9 pl-1">
+          <p class="mb-1 "><small>
+            <a class="text-reset font-weight-bold" href="{% url 'myAccount:user_detail' pk=activity.action_user.pk %}">
+              {% if activity.action_user.nickname %}
+                {{ activity.action_user.nickname }}さん
+              {% else %}
+                {{ activity.action_user.username|slice:':5' }}***さん
+              {% endif %}
+            </a>
+            が
+            {% if activity.activity == 10 %}
+              <a class="text-reset font-weight-bold" href="{% url 'board:post_detail' pk=activity.model_key %}">投稿</a>
+              にいいねしました
+            {% elif activity.activity == 20 %}
+              <a class="text-reset font-weight-bold" href="{% url 'board:post_detail' pk=activity.model_key %}">投稿</a>
+              にコメントしました
+            {% elif activity.activity == 30 %}
+              あなたをフォローしました
+            {% endif %}
+          </small></p>
+        </div>
+      </li>
+    {% empty %}
+      <p class="text-center "><small>新着情報はありません</small></p>
+    {% endfor %}
+  </ul>
+</div>

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="content-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="card col-sm-6 offset-sm-3">
+          <div class="card-body">
+            <h1 class="card-title text-center" style="font-family: 'Pacifico', cursive;">Pictoforio</h1>
+            <div class="card-text">
+{#              <p class="text-center">Googleアカウントでログインする</p>#}
+              <form method="post">
+                {% csrf_token %}
+                <button class="btn btn-secondary btn-block" type="submit">Googleアカウントでログインする</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+<div class="row row-cols-1 row-cols-md-3">
+  {% for post in post_list %}
+    <div class="col">
+      <div class="card mb-4">
+        {#        <div class="card-header">#}
+        {#          <p class="card-text fw-bold ">#}
+        {#            <a class="text-decoration-none text-reset" href="{% url 'myAccount:user_detail' pk=post.owner.pk %}">#}
+        {#              {{ post.owner.email|slice:':5' }}***さん#}
+        {#            </a>#}
+        {#          </p>#}
+        {#        </div>#}
+        {# postからpictureを逆引きした一件目だけ取得。その中のpictureカラムのurl属性を取得 #}
+        {# styleはcssに外だしする予定 #}
+        <div class="hover-img">
+          <a href="{% url 'board:post_detail' pk=post.id %}">
+            <img src="{{ post.picture_set.first.picture.url }}" alt="" class="card-img-top img-fluid"
+                 style="aspect-ratio: 4/3; object-fit: cover;">
+          </a>
+          <h6 class="like-icon">
+            <i class="fas fa-heart align-center like-red"></i> {{ post.like_set.count }}
+          </h6>
+          {% if post.picture_set.all.count > 1 %}
+            <h6 class="file-icon">
+              <i class="fas fa-clone align-center"></i>
+            </h6>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{#<table id='post_list'#}
+{#       class="table table-striped table-bordered">#}
+{#  <!-- 表のデータ部分の表示-->#}
+{#  <tbody>#}
+{#  {% for post in post_list %}#}
+{#    <tr class="text">#}
+{#      <td class="text" style="width: 80%">#}
+{#        <h6>#}
+{#          <a href="{% url 'board:post_detail' pk=post.id %}">#}
+{#            {{ post.owner }}@{{ post.created_at | date:'Y.j.n' }}#}
+{#          </a>#}
+{#        </h6>{{ post.content }}#}
+{#      </td>#}
+{# いいね！ #}
+{#      <td class="text-center align-middle" style="width: 20%">#}
+{#        {% include 'board/like.html' %}#}
+{#      </td>#}
+{#    </tr>#}
+{#  {% endfor %}#}
+{#  </tbody>#}
+{#  <!-- ここまでが表のデータ部分の表示-->#}
+{#</table>#}
+{#<!-- ここまでがテーブル表の定義 -->#}

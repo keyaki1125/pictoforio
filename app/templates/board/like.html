@@ -1,0 +1,13 @@
+<div class="row d-flex justify-content-center align-items-center">
+  <form id="ajax-like" class="col form-inline" action="{% url 'board:like' %}" name="{{ post.id }}-like-form">
+    {% csrf_token %}
+    {# item(Post)のidがliked_list(ログインユーザがいいねしたPost.idのリスト)に含まれているかどうか #}
+    {% if post.id in liked_list %}
+      <button class="btn btn-sm g-0" name="{{ post.id }}-like-btn"><i class="fas fa-heart align-center like-red"
+                                                               style="color: #e8383d"></i></button>
+    {% else %}
+      <button class="btn btn-sm g-0" name="{{ post.id }}-like-btn"><i class="far align-center fa-heart"></i></button>
+    {% endif %}
+    <p name="{{ post.id }}-like-count" class="font-weight-light count my-auto">いいね！ {{ post.like_set.count }} 件</p>
+  </form>
+</div>

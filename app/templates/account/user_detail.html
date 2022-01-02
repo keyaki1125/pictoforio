@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="content-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+          <div class="card">
+            <div class="card-header">
+              <h4><b>ニックネーム</b></h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text">ユーザー情報！</p>
+              <p class="card-text">{{ target_user.email }}</p>
+              {% include 'account/follow_base.html' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+  {% load static %}
+  <script src="{% static 'base/js/csrf_token.js' %}"></script>
+  <script src="{% static 'myAccount/js/ajax_follow.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load account socialaccount %}
+{% load socialaccount %}
+{% providers_media_js %}
+
+{% block content %}
+  {#  <div class="jumbotron">#}
+  {#    <h1 class="display-4 font-"><small>Welcome to </small><span#}
+  {#        style="font-family: 'Pacifico', cursive;">Pictoforio</span></h1>#}
+  {#    <p class="lead">Pictoforio(ピクトフォリオ)は写真を通じて繋がるSNSサイトです。<br>お気に入りの写真を投稿してみよう！</p>#}
+  {#    <hr class="my-4">#}
+  {#    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>#}
+  {#    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>#}
+  {#  </div>#}
+  <div class="container">
+    <div class="row">
+      <div class="card col-sm-6 offset-sm-3">
+        <div class="card-body">
+          <h1 class="card-title text-center" style="font-family: 'Pacifico', cursive;">Pictoforio</h1>
+          <h5 class="card-subtitle text-muted mt-3 text-center">ログインページ</h5>
+          <div class="card-text">
+            <div class="py-3">
+              <a href="{% provider_login_url "google" %}" class="btn btn-block btn-social btn-google"
+                 style="text-align: center">
+                <i class="fab fa-google" style="height: auto"></i>Googleでログイン
+              </a>
+            </div>
+            <div class="text-line d-flex align-items-center">
+              <p class="mb-0 text-muted"><small>または</small></p>
+            </div>
+            <form class="py-3" method="POST" action="{% url 'account_login' %}">
+              {% csrf_token %}
+              {% bootstrap_form form show_label=False %}
+              {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+              {% endif %}
+              <button type="submit" class="btn btn-primary btn-block" name="button">ログイン</button>
+              {#        {% for provider in socialaccount_providers %}#}
+              {#          <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} btn btn-primary"#}
+              {#             href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{ provider.name }}</a>#}
+              {#        {% endfor %}#}
+{#              <a href="{% provider_login_url "google" %}" class="btn btn-block btn-social btn-google"#}
+{#                 style="text-align: center">#}
+{#                <i class="fab fa-google" style="height: auto"></i>Googleでログイン#}
+{#              </a>#}
+              {#            <a href="{% provider_login_url "google" %}" class="btn btn-block btn-google"#}
+              {#               style="text-align: center">#}
+              {#              <i class="fab fa-google"></i>  Googleでログイン#}
+              {#            </a>#}
+              {#            <a class="btn btn-block btn-outline-secondary btn-sm button secondaryAction"#}
+              {#               href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>#}
+            </form>
+          </div>
+        </div>
+        <hr class="my-0">
+        <div class="card-body">
+          <div class="card-text">
+            <p class="mb-0 text-right"><small>会員登録はお済みでない方は<a href="{% url 'account_signup' %}">コチラ</a></small></p>
+            <p class="mb-0 text-right"><small>パスワードを忘れた方は<a href="{% url 'account_reset_password' %}">コチラ</a></small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{#<div class="card-header">#}
+{#  <h5><b>コメント一覧</b></h5>#}
+{#</div>#}
+{% load board_extras %}
+
+<div class="card-body overflow-auto py-1" style="max-height: 20vh">
+  {% for comment in comments %}
+    <div class="row pb-3">
+      <div class="col-2 pr-md-1 pr-lg-3">
+        <a class="text-reset" href="{% url 'myAccount:user_detail' pk=comment.user.pk %}">
+          {% if comment.user.avatar %}
+            <img class="img-fluid" src="{{ comment.user.avatar.url }}" alt="" style="border-radius: 50%;">
+          {% else %}
+            <i class="far fa-meh rounded img-fluid mx-auto d-block" style="border-radius: 50%; width: 100%"></i>
+          {% endif %}
+        </a>
+      </div>
+      {#            <p class="col-2">{{ comment.user.username|slice:':3' }}***</p>#}
+      <div class="col-7">
+        <p class="mb-0">
+          <a class="text-reset" href="{% url 'myAccount:user_detail' pk=comment.user.pk %}">
+            <span class="font-weight-bold">{{ comment.user.username|slice:':3' }}***</span></a>
+          <br>
+          {{ comment.text | linebreaksbr }}
+        </p>
+      </div>
+      <div class="col-3 pl-1 d-flex flex-column align-items-end">
+        <p class="mb-1">{{ comment.created_at|timesince|split_timesince:',' }}前</p>
+        {% if comment.user == user %}
+          <form class="" id="ajax-comment-del" action="{% url 'board:comment_delete' %}"
+                data-comment-id="{{ comment.id }}-comment-id" data-post-id="{{ post.id }}-post-id">
+            {% csrf_token %}
+            <button type="submit" class="btn">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  {% empty %}
+    <p class="mb-0">コメントはまだありません</p>
+  {% endfor %}
+</div>
+<div class="card-body">
+  <form class="form" id="ajax-comment" action="{% url 'board:comment' %}"
+        name="{{ post.id }}-post-id-for-comment">
+    {% csrf_token %}
+    <label class="sr-only" for="id_text">コメント</label>
+    <div class="form-row">
+    <textarea name="text" class="form-control-sm col-10" placeholder="コメントする..." required="true"
+              id="id_text"></textarea>
+    <button type="submit" class="btn btn-sm btn-info col-2"><i class="far fa-comment-dots"></i></button>
+    </div>
+  </form>
+</div>

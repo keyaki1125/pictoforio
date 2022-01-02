@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+gunicorn = "*"
+psycopg2-binary = "==2.8.6"
+pillow = "*"
+django-cleanup = "*"
+sorl-thumbnail = "*"
+django-allauth = "*"
+bcrypt = "*"
+django-bootstrap4 = "*"
+beautifulsoup4 = "*"
+django-environ = "*"
+numpy = "*"
+opencv-python = "*"
+wheel = "*"
+setuptools = "*"
+django = {version = "==3", extras = ["argon2"]}
+factory-boy = "*"
+django-debug-toolbar = "*"
+boto3 = "*"
+django-storages = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

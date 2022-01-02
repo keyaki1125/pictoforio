@@ -1,0 +1,7 @@
+{% if target_user.avatar %}
+  <img class="rounded img-fluid mx-auto d-block"
+       src="{{ target_user.avatar.url }}" id="avatar-image" alt="avatar_image">
+  {# ユーザーがプロフィール画像を持っている場合はデフォルト画像を表示#}
+{% else %}
+  <i class="far fa-meh fa-10x rounded img-fluid mx-auto d-block"></i>
+{% endif %}

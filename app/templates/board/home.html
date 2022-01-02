@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="content-wrapper">
+    <div class="jumbotron text-center" style="background-color: #ffa07a;">
+      <h1 class="display-4 font-">
+        <small>Welcome to </small><span style="font-family: 'Pacifico', cursive;">"Pictoforio"</span>
+      </h1>
+      <p class="lead">Pictoforio(ピクトフォリオ)は写真を通じて繋がるSNSサイトです。<br>あなたの写真をみんなとシェアしよう！</p>
+      {#        <hr class="my-4">#}
+      {#        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>#}
+      {#        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>#}
+    </div>
+    <div class="container">
+      <!-- .grid-indexでCards全体をネストする -->
+      <div class="grid-index">
+        <!-- ウインドウサイズごとにグリッドサイズを定義。スマホだと横に1つ、タブレットだと2つ、PCだと3つ並べる -->
+        <div class="grid-sizer col-6 col-lg-4 pb-3 px-2"></div>
+        <!-- Card1 -->
+        {% for picture in object_list %}
+          <div class="grid-item col-6 col-lg-4 pb-3 px-2">
+            <div class="card">
+              <a href="{% url 'board:post_detail' pk=picture.post_id %}">
+                <img class="img-fluid" src="{{ picture.picture.url }}" alt="">
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+        <!-- Card1ここまで -->
+      </div> <!-- .grid-index -->
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script>
+      $(function () {
+          $('.grid-index').imagesLoaded(function () { //imagesLoadedを使用し、画像が読み込みまれた段階でMasonryの関数を実行させる
+              $('.grid-index').masonry({
+                  itemSelector: '.grid-item',
+                  columnWidth: '.grid-sizer',
+                  {#horizontalOrder: true,#}
+                  percentPosition: true
+              });
+          });
+      });
+  </script>
+{% endblock %}

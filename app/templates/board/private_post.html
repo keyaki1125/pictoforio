@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="content-wrapper">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-md-3">
+        {% for post in private_post_list %}
+          <div class="col">
+            <div class="card mb-4">
+              <div class="hover-img">
+                <a href="{% url 'board:post_detail' pk=post.id %}">
+                  <img src="{{ post.picture_set.first.picture.url }}" alt="" class="card-img-top img-fluid"
+                       style="aspect-ratio: 4/3; object-fit: cover;">
+                </a>
+                <h6 class="like-icon">
+                  <i class="fas fa-heart align-center like-red"></i> {{ post.like_set.count }}
+                </h6>
+                {% if post.picture_set.all.count > 1 %}
+                  <h6 class="file-icon">
+                    <i class="fas fa-clone align-center"></i>
+                  </h6>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <p class="text-center">下書き・非公開記事はありません</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

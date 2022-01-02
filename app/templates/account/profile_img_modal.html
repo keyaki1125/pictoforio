@@ -1,0 +1,25 @@
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">プロフィール画像をアップロード</h5>
+    </div>
+    <div class="modal-body">
+      <div class="input-group mb-3">
+        <p>プロフィールに使用する画像をアップロードし、トリミングを行った上で登録してください。</p>
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupFileAddon">アップロード</span>
+        </div>
+        <div class="custom-file">
+          <input type="file" name="upload_image" id="upload_image" class="custom-file-input"
+                 aria-describedby="inputGroupFileAddon" accept="image/*"/>
+          <label class="custom-file-label" for="inputGroupFile" data-browse="参照">ファイル選択...</label>
+        </div>
+      </div>
+      <div id="profileImage_croppie"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary btn-sm" id="post_image" data-href="{% url 'myAccount:image_upload' %}">画像を登録</button>
+      <button type="button" class="btn btn-secondary btn-sm ml-2" id="cancel" data-dismiss="modal">キャンセル</button>
+    </div>
+  </div>
+</div>
