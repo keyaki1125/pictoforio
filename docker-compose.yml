@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: ./app
+    command: python manage.py runserver 0.0.0.0:8000
+    working_dir: /opt/project/app/
+#    working_dir: /usr/src/app/
+    volumes:
+      - ./app:/opt/project/app
+      - static_volume:/opt/project/app/static
+      - media_volume:/opt/project/app/media
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14.0-alpine
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+
+volumes:
+  db_data:
+  static_volume:
+  media_volume:
