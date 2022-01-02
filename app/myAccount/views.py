@@ -35,6 +35,11 @@ class UserList(LoginRequiredMixin, generic.ListView):
     template_name = 'account/user_list.html'
     model = User
 
+    def get_queryset(self):
+        User = self.model
+        qs = User.objects.exclude(pk=self.request.user.pk)
+        return qs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user

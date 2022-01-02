@@ -4,11 +4,49 @@
     <div class="container-md">
       <table id='user_list' class="table table-bordered table-hover">
         <tbody>
-        {# object = user #}
+        {# 自分を先頭に表示 #}
+        <tr class="odd gradeX text-center">
+          {# プロフィール画像列 #}
+          <td class="align-middle p-1">
+            {# ユーザーがプロフィール画像を持っている場合#}
+            {% if user.avatar %}
+              <img class="img-thumbnail mx-auto d-block" src="{{ user.avatar.url }}"
+                   id="avatar-thumbnail" alt="avatar_thumbnail" width="60px" style="border-radius: 50%;">
+              {# ユーザーがプロフィール画像を持ってない場合はfont-awesomeの画像を表示#}
+            {% else %}
+              <i class="far fa-meh img-thumbnail mx-auto d-block" style="width: 60px;border-radius: 50%;"></i>
+            {% endif %}
+          </td>
+          {# ユーザー名列 #}
+          <td class="text-left align-middle">
+            <a class="text-reset font-weight-bold"
+               href="{% url 'myAccount:user_detail' pk=user.pk %}">
+              {% if user.nickname %}
+                {{ user.nickname }}
+              {% else %}
+                {{ user.username|slice:':5' }}***さん(ニックネーム未設定)
+              {% endif %}
+            </a>
+          </td>
+          <td class="align-middle">
+            <p class="mb-0">
+              <i class="fas fa-pen"></i>：<span
+                class="badge badge-pill badge-success">{{ user.post_set.all.count }}</span>
+            </p>
+            <p class="mb-0">
+              <i class="fas fa-camera"></i>：<span
+                class="badge badge-pill badge-success">{{ user.picture_set.all.count }}</span>
+            </p>
+          </td>
+          {# Follow/Unfollow列 #}
+          <td class=" align-middle">
+          {# 自分は空欄 #}
+          </td>
+        </tr>
         {% for target_user in object_list %}
           <tr class="odd gradeX text-center">
             {# プロフィール画像列 #}
-            <td class="align-middle p-1" >
+            <td class="align-middle p-1">
               {# ユーザーがプロフィール画像を持っている場合#}
               {% if target_user.avatar %}
                 <img class="img-thumbnail mx-auto d-block" src="{{ target_user.avatar.url }}"
@@ -29,16 +67,18 @@
                 {% endif %}
               </a>
             </td>
-            <td class="align-middle" >
+            <td class="align-middle">
               <p class="mb-0">
-                <i class="fas fa-pen"></i>：<span class="badge badge-pill badge-success">{{ target_user.post_set.all.count }}</span>
+                <i class="fas fa-pen"></i>：<span
+                  class="badge badge-pill badge-success">{{ target_user.post_set.all.count }}</span>
               </p>
               <p class="mb-0">
-                <i class="fas fa-camera"></i>：<span class="badge badge-pill badge-success">{{ target_user.picture_set.all.count }}</span>
+                <i class="fas fa-camera"></i>：<span
+                  class="badge badge-pill badge-success">{{ target_user.picture_set.all.count }}</span>
               </p>
             </td>
             {# Follow/Unfollow列 #}
-            <td class=" align-middle" >
+            <td class=" align-middle">
               {% if target_user != user %}
                 <form action="{% url 'myAccount:follow' %}" id="follow-form">
                   {% csrf_token %}
