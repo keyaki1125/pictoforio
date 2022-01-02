@@ -43,7 +43,7 @@
               {% if confirmation %}
                 <p>ご登録メールアドレスは{{ confirmation.email_address.email }}で間違いありませんか？</p>
                 <p>
-                  <a href="{% url 'myAccount:terms_of_service' %}">利用規約</a>と<a href="{% url 'myAccount:privacy_policy' %}">プライバシーポリシー</a>を必ずお読みください。</p>
+                  <a href="{% url 'terms_of_service' %}">利用規約</a>と<a href="{% url 'privacy_policy' %}">プライバシーポリシー</a>を必ずお読みください。</p>
               <form method="post" {% url 'account_confirm_email' confirmation.key %}>
                 {% csrf_token %}
                 <button type="submit" class="btn btn-secondary btn-block">

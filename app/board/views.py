@@ -60,6 +60,7 @@ class PrivatePostDetailUserPassesTestMixin(UserPassesTestMixin):
             rtn = False
         return rtn
 
+
 class Home(LoginRequiredMixin, generic.ListView):
     """ホーム画面は全pictureをランダムに敷き詰めたデザイン"""
     model = Picture
@@ -113,7 +114,8 @@ def post_picture_create(request):
     """新規投稿ビュー。画像を複数投稿するためにインラインフォームセットを利用している。"""
     post_form = PostCreateForm(request.POST or None)
     context = {'post_form': post_form}
-    success_url = 'board:post_list'
+    # success_url = 'board:post_list'
+    success_url = reverse_lazy('myAccount:user_detail', kwargs={'pk': request.user.pk})
     success_message = '新規投稿しました'
 
     if request.method == 'POST' and post_form.is_valid():

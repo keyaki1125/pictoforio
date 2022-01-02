@@ -63,42 +63,6 @@
                     </div>
                   {% endfor %}
                 </div>
-                {#                {% bootstrap_form picture_form show_label=False form_group_class='form-group img-input' %}#}
-                {#                                {% bootstrap_field picture_form.picture show_label=False form_group_class='form-group img-input' field_class='custom-file' %}#}
-                {#                <div class="form-group img-input row">#}
-                {#                  <div id="file" class="input-group py-3 col col-lg-8">#}
-                {#                    <div class="custom-file">#}
-                {#                      {{ picture_form.picture.errors }}#}
-                {#                      <input type="file" id="id_picture" class="custom-file-input" name="picture" title required multiple/>#}
-                {#                      <label class="custom-file-label" for="id_picture" data-browse="参照">ファイル選択...</label>#}
-                {#                    </div>#}
-                {#                    <div class="input-group-append">#}
-                {#                      <button type="button" class="btn btn-outline-secondary reset">取消</button>#}
-                {#                    </div>#}
-                {#                  </div>#}
-                {#                  <div class="input-group">#}
-                {#                    <div class="custom-file">#}
-                {#                      <input type="file" name="picture" multiple="" accept="image/*" class="custom-file-input" title=""#}
-                {#                             required="" id="id_picture" style="cursor: pointer">#}
-                {#                      <label for="id_picture" class="custom-file-label" data-browse="参照">ファイルを選べ</label>#}
-                {#                    </div>#}
-                {#                    <div class="input-group-append">#}
-                {#                      <button type="button" class="btn btn-outline-secondary input-group-text" id="inputFileReset">取消#}
-                {#                      </button>#}
-                {#                    </div>#}
-                {#                  </div>#}
-                {#                </div>#}
-                {#                <div class="image-preview form-row pb-3">#}
-                {#                  <!-- ここで画像をプレビューする -->#}
-                {#                </div>#}
-
-                {#                  {% for picture_form in formset %}#}
-                {#                    {{ picture_form.as_p }}#}
-                {#                    <hr>#}
-                {#                  {% endfor %}#}
-                {#                {% bootstrap_button '画像を追加' button_type='button' button_class='btn btn-primary' %}#}
-                {#                {% bootstrap_button '投稿する' button_type='submit' button_class='btn btn-outline-primary btn-block' %}#}
-                {#                <button class="btn btn-primary mb-3" id="add" type="button">画像を追加</button>#}
                 <button type="submit" name="btn-publish" class="btn btn-secondary btn-block">公開する</button>
                 <button type="submit" name="btn-draft" class="btn btn-outline-secondary btn-block">下書き・非公開として保存</button>
               </form>
@@ -112,68 +76,6 @@
 {% block js %}
   <script>
       $(function () {
-          {#var totalManageElement = $('input#id_picture_set-TOTAL_FORMS');#}
-          {#var currentPictureCount = parseInt(totalManageElement.val());#}
-          {#var maxCountElement = $('input#id_picture_set-MAX_NUM_FORMS');#}
-          {#var maxCount = parseInt(maxCountElement.val());#}
-
-          {#$('button#add').on('click', function () {#}
-          {#    if (currentPictureCount < maxCount) {#}
-          {#        // ファイルインプット要素#}
-          {#        var fileElement = $('<input>', {#}
-          {#            type: 'file',#}
-          {#            "class": 'custom-file-input',#}
-          {#            name: 'picture_set-' + currentPictureCount + '-picture',#}
-          {#            id: 'id_picture_set-' + currentPictureCount + '-picture',#}
-          {#            accept: 'image/*'#}
-          {#        });#}
-          {#        // ファイルインプットラベル#}
-          {#        var fileLabel = $('<label>', {#}
-          {#            "class": 'custom-file-label',#}
-          {#            for: 'id_picture_set-' + currentPictureCount + '-picture',#}
-          {#            "data-browse": '参照',#}
-          {#            text: 'ファイル選択...',#}
-          {#        });#}
-          {##}
-          {#        // 取り消しボタン#}
-          {#        let resetBtn = $('<button>', {#}
-          {#            type: 'button',#}
-          {#            "class": 'btn btn-outline-secondary reset',#}
-          {#            text: '取消',#}
-          {#        })#}
-          {#// 削除チェックボックス#}
-          {#var deleteElement = $('<input>', {#}
-          {#    type: 'checkbox',#}
-          {#    "class": 'form-check-input',#}
-          {#    name: 'picture_set-' + currentPictureCount + '-DELETE',#}
-          {#    id: 'id_picture_set-' + currentPictureCount + '-DELETE',#}
-          {# });#}
-          {#// 削除ラベル#}
-          {#var deleteLabel = $('<label>', {#}
-          {#    "class": 'form-check-label',#}
-          {#    for: 'id_picture_set-' + currentPictureCount + '-DELETE',#}
-          {#    text: '削除',#}
-          {# });#}
-          {##}
-          {#        var inputGroup = $('<div></div>',#}
-          {#            {'class': 'input-group pb-3',#}
-          {#            id: currentPictureCount + '-id-input-group'});#}
-          {#        var customFile = $('<div></div>', {'class': 'custom-file'});#}
-          {#        var inputGroupAppend = $('<div></div>', {'class': 'input-group-append'});#}
-          {##}
-          {#        customFile.append(fileElement, fileLabel);#}
-          {#        inputGroupAppend.append(resetBtn);#}
-          {#        inputGroup.append(customFile, inputGroupAppend);#}
-          {##}
-          {#        $('#picture-area').append(inputGroup);#}
-          {##}
-          {#        currentPictureCount += 1;#}
-          {#        totalManageElement.attr('value', currentPictureCount);#}
-          {#    } else {#}
-          {#        alert('画像は5枚まで！')#}
-          {#    }#}
-          {# });#}
-
           // 取り消しボタン
           $('.reset').click(function () {
               $(this).parent().prev().children('.custom-file-label').html('ファイル選択...');

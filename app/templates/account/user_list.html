@@ -8,7 +8,7 @@
         {% for target_user in object_list %}
           <tr class="odd gradeX text-center">
             {# プロフィール画像列 #}
-            <td class="align-middle p-1 bg-light" >
+            <td class="align-middle p-1" >
               {# ユーザーがプロフィール画像を持っている場合#}
               {% if target_user.avatar %}
                 <img class="img-thumbnail mx-auto d-block" src="{{ target_user.avatar.url }}"
@@ -31,10 +31,10 @@
             </td>
             <td class="align-middle" >
               <p class="mb-0">
-                <i class="fas fa-pen"></i>：<span class="badge badge-pill badge-secondary">{{ target_user.post_set.all.count }}</span>
+                <i class="fas fa-pen"></i>：<span class="badge badge-pill badge-success">{{ target_user.post_set.all.count }}</span>
               </p>
               <p class="mb-0">
-                <i class="fas fa-camera"></i>：<span class="badge badge-pill badge-secondary">{{ target_user.picture_set.all.count }}</span>
+                <i class="fas fa-camera"></i>：<span class="badge badge-pill badge-success">{{ target_user.picture_set.all.count }}</span>
               </p>
             </td>
             {# Follow/Unfollow列 #}

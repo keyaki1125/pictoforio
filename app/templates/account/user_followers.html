@@ -16,7 +16,13 @@
       </td>
       <td class="text-left align-middle">
         <a class="text-reset font-weight-bold"
-           href="{% url 'myAccount:user_detail' pk=follower.pk %}">{{ follower.username|slice:':5' }}***さん</a>
+           href="{% url 'myAccount:user_detail' pk=follower.pk %}">
+          {% if follower.nickname %}
+            {{ follower.nickname }}
+          {% else %}
+            {{ follower.username|slice:':5' }}***さん(ニックネーム未設定)
+          {% endif %}
+        </a>
       </td>
       <td class="align-middle">
         <p class="mb-0">
@@ -51,12 +57,14 @@
     </tr>
     {% empty %}
     <p class="text-center">まだ誰からもフォローされていません。</p>
+    {% if target_user == user %}
     <div class="text-center">
       <a class="btn btn-primary" href="{% url 'board:create' %}" role="button">
         画像と思い出を投稿して
         <br>
         みんなに見てもらおう！</a>
     </div>
+    {% endif %}
   {% endfor %}
   </tbody>
   <!-- ここまでが表のデータ部分の表示-->

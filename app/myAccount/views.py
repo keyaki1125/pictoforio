@@ -26,18 +26,7 @@ import numpy as np
 from django_cleanup import cleanup
 from allauth.account.views import PasswordChangeView
 
-
 User = get_user_model()
-
-
-def random_file_name(n):
-    """プロフ画像保存にて仮ファイル名用にランダムな文字列を生成する"""
-    return ''.join(random.choices(string.ascii_letters + string.digits, k=n))
-
-
-# class Home(generic.TemplateView):
-#
-#     template_name = 'account/home.html'
 
 
 class UserList(LoginRequiredMixin, generic.ListView):
@@ -96,7 +85,6 @@ class ProfileEdit(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
     template_name = 'account/edit_profile.html'
     model = User
     form_class = ProfileForm
-    # success_url = reverse_lazy('myAccount:my_profile')
     success_message = 'プロフィールを編集しました'
 
     def get_success_url(self):
@@ -138,20 +126,9 @@ class MyPasswordChange(LoginRequiredMixin, PasswordChangeView):
     allauthで用意されているクラスのsuccess_urlをカスタムしている。
     """
 
-    # success_url = reverse_lazy('myAccount:user_detail')
     def get_success_url(self):
         success_url = reverse('myAccount:user_detail', kwargs={'pk': self.request.user.pk})
         return success_url
-
-
-# class TermsOfService(generic.TemplateView):
-#     """利用規約ページ"""
-#     template_name = 'account/../templates/myProject/terms_of_service.html'
-#
-#
-# class PrivacyPolicy(generic.TemplateView):
-#     """プライバシーポリシーページ"""
-#     template_name = 'account/../templates/myProject/privacy_policy.html'
 
 
 @require_POST

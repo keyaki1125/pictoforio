@@ -175,16 +175,16 @@
       <div class="row">
         <div class="col" style="width: 100%">
           <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
-            <li class="nav-item"><a href="#my-posts" class="nav-link active" role="tab" data-toggle="tab">投稿
+            <li class="nav-item"><a href="#my-posts" class="nav-link active text-reset" role="tab" data-toggle="tab">投稿
               {#  object_listのlengthを取得することで投稿数をカウントできる。#}
-              <span class="badge badge-secondary">{{ target_user.post_set.count }}</span></a></li>
-            <li class="nav-item"><a href="#follows" class="nav-link" role="tab" data-toggle="tab">フォロー中
+              <span class="badge badge-success badge-pill">{{ target_user.post_set.count }}</span></a></li>
+            <li class="nav-item"><a href="#follows" class="nav-link text-reset" role="tab" data-toggle="tab">フォロー中
               {#  フォロワー数を表示#}
-              <span class="badge badge-secondary">{{ target_user_follows.count }}</span></a></li>
+              <span class="badge badge-success badge-pill">{{ target_user_follows.count }}</span></a></li>
             {# my_follows = target_user_follows #}
-            <li class="nav-item"><a href="#follwers" class="nav-link" role="tab" data-toggle="tab">フォロワー
+            <li class="nav-item"><a href="#follwers" class="nav-link text-reset" role="tab" data-toggle="tab">フォロワー
               {#  フォロワー数を表示#}
-              <span class="badge badge-secondary">{{ target_user_followers.count }}</span></a></li>
+              <span class="badge badge-success badge-pill">{{ target_user_followers.count }}</span></a></li>
             {# my_followers = target_user_follows #}
           </ul>
         </div>
