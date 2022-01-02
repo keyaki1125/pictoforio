@@ -161,7 +161,7 @@ def profile_image_upload(request):
         user.save()
     else:
         # DEBUG=Falseならs3に保存する
-        bucket_name = 'pictoforio-dev'  # これはテスト用のs3バケット
+        bucket_name = 'pictoforio'  # これは本番用のs3バケット
         s3_file_path = os.path.join('media', new_file_path)
         s3 = boto3.resource('s3')
         # 保存
