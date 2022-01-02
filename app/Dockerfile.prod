@@ -40,7 +40,9 @@ COPY ./entrypoint.prod.sh $APP_HOME
 COPY . $APP_HOME
 
 # $APP_HOME(-Rを用いてディレクトリ内全て)の所有権をシステムユーザに変更
-RUN chown -R app:app $APP_HOME
+RUN chown -R app:app $APP_HOME && \
+    chown -R app:app /opt/project/app/media && \
+    chown -R app:app /opt/project/app/static &&
 
 # 実行ユーザをappに変更
 USER app
