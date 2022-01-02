@@ -9,6 +9,8 @@ ENV PYTHONUNBUFFERED 1
 
 # djangoのプロジェクトをコピー先となるディレクトリを作る
 ENV APP_HOME=/opt/project/app
+ENV MEDIA=/opt/project/app/media
+ENV STATIC=/opt/project/app/static
 RUN mkdir -p $APP_HOME && \
     mkdir $APP_HOME/static && \
     mkdir $APP_HOME/media
@@ -41,8 +43,8 @@ COPY . $APP_HOME
 
 # $APP_HOME(-Rを用いてディレクトリ内全て)の所有権をシステムユーザに変更
 RUN chown -R app:app $APP_HOME && \
-    chown -R app:app /opt/project/app/media && \
-    chown -R app:app /opt/project/app/static &&
+    chown -R app:app $MEDIA && \
+    chown -R app:app $STATIC
 
 # 実行ユーザをappに変更
 USER app
