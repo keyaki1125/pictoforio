@@ -145,7 +145,7 @@ def profile_image_upload(request):
     image = cv2.imdecode(image_binary, cv2.IMREAD_COLOR)  # cv2でbase64を画像にデコード
     new_file_name = f'{str(uuid.uuid4())}.png'
     new_file_path = os.path.join('images', 'avatars', new_file_name)
-    new_file_abspath = os.path.join(settings.MEDIA_ROOT, new_file_path)
+    new_file_abspath = os.path.join(settings.BASE_DIR, 'media', new_file_path)
     cv2.imwrite(new_file_abspath, image)
     if settings.DEBUG:
         # 旧ファイルがあれば消す
