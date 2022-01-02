@@ -32,6 +32,10 @@ DATABASES = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static_dev"),
+]
+
 # AWS S3用の設定
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
