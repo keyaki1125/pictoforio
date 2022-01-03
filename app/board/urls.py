@@ -4,7 +4,7 @@ from . import views
 app_name = 'board'
 
 urlpatterns = [
-    path('home', views.Home.as_view(), name='home'),
+    # path('home', views.Home.as_view(), name='home'),
     path('post/list', views.PostList.as_view(), name='post_list'),
     path('post/list/like', views.LikePostList.as_view(), name='like_post_list'),
     path('post/list/<int:pk>/private', views.PrivatePostList.as_view(), name='private_post_list'),

@@ -187,7 +187,7 @@ MESSAGE_TAGS = {
 AUTH_USER_MODEL = 'myAccount.MyUser'
 
 # ログインURLやリダイレクト先の設定
-LOGIN_REDIRECT_URL = 'board:home'  # ログイン後のリダイレクト先
+LOGIN_REDIRECT_URL = 'home'  # ログイン後のリダイレクト先
 ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'  # ログアウト後のリダイレクト先
 LOGIN_URL = 'account_login'  # 'loginrequired'などの遷移先
 # LOGOUT_REDIRECT_URL = 'account_login'

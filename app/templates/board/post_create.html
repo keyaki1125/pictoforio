@@ -6,7 +6,7 @@
         <div class="col-lg-8 offset-lg-2">
           <div class="card">
             <div class="card-header">
-              <h4><b>新規投稿</b></h4>
+              <h4 class="mb-0"><b>新規投稿</b></h4>
             </div>
             <div class="card-body">
               <form class="" method="post" enctype="multipart/form-data">
@@ -43,7 +43,8 @@
                 <div id="picture-area">
                 <p class="mb-0">画像を選択してください</p>
                 <p class="text-muted"><small>
-                  5枚まで選択できます。「取消ボタン」を押すことで入力を取り消すことができます。</small></p>
+                  5枚まで選択できます。「取消ボタン」を押すことで入力を取り消すことができます。<br>
+                  画像のサイズが大きと送信に時間がかかることがあります。</small></p>
                   {{ formset.management_form }}
                   {% for picture_form in formset %}
                     <div class="input-group pb-3" id="0-id-input-group">
@@ -120,87 +121,4 @@
           });
       });
   </script>
-  {#  <script>#}
-  {#      $(document).ready(function () {#}
-  {#          $('.custom-file-input').on('change', handleFileSelect);#}
-  {##}
-  {#          function handleFileSelect(evt) {#}
-  {#              $('#preview').remove();// 繰り返し実行時の処理#}
-  {#              $(this).parents('.input-group').after('<div id="preview" class="form-row"></div>');#}
-  {##}
-  {#              var files = evt.target.files;#}
-  {#              if (files.length <= 5) {#}
-  {#                  for (var i = 0, f; f = files[i]; i++) {#}
-  {#                      var reader = new FileReader();#}
-  {#                      reader.onload = (function (theFile) {#}
-  {#                          return function (e) {#}
-  {#                              if (theFile.type.match('image.*')) {#}
-  {#                                  var $html = ['<div class="col-15"><img class="img-thumbnail" src="', e.target.result, '" title="', escape(theFile.name), '" style="" /><div class="small text-muted text-center">', escape(theFile.name), '</div></div>'].join('');// 画像では画像のプレビューとファイル名の表示#}
-  {#                              } else {#}
-  {#                                  var $html = ['<div class="d-inline-block mr-1"><span class="small">', escape(theFile.name), '</span></div>'].join('');//画像以外はファイル名のみの表示#}
-  {#                              }#}
-  {##}
-  {#                              $('#preview').append($html);#}
-  {#                          };#}
-  {#                      })(f);#}
-  {##}
-  {#                      reader.readAsDataURL(f);#}
-  {#                  }#}
-  {#                  $(this).next('.custom-file-label').html(+files.length + '個のファイルを選択しました');#}
-  {#              } else {#}
-  {#                  $('.custom-file-label').html('ファイル選択...');#}
-  {#                  $('.custom-file-input').val('');#}
-  {#                  alert('画像の投稿は5枚までです');#}
-  {#              }#}
-  {#          }#}
-  {##}
-  {#          //ファイルの取消#}
-  {#          $('.reset').click(function () {#}
-  {#              $(this).parent().prev().children('.custom-file-label').html('ファイル選択...');#}
-  {#              $('#preview').remove();#}
-  {#              $('.custom-file-input').val('');#}
-  {#          })#}
-  {#console.log('ready OK')#}
-  {#    bsCustomFileInput.init();#}
-  {#    $('#inputFileReset').on('click', function () {#}
-  {#        console.log('clicked!');#}
-  {#        let element = $('#id_picture');#}
-  {#        console.log(element.val());#}
-  {#        element.val('');#}
-  {#        console.log(element.val());#}
-  {#        element.trigger('change');#}
-  {#        console.log('triggered!');#}
-  {#    });#}
-  {##}
-  {#    let imgInput = $('#id_picture')#}
-  {#    imgInput.off('change').on('change', function (event) {#}
-  {#        console.log('changed!!')#}
-  {#        let previewArea = $('.image-preview')#}
-  {#        if (event.target.files && event.target.files[0]) {#}
-  {#            previewArea.empty();#}
-  {#            let files = event.target.files;#}
-  {#            if (files.length <= 5) {#}
-  {#                for (let i = 0; i < files.length; i++) {#}
-  {#                    let file = files[i];#}
-  {#                    let reader = new FileReader();#}
-  {#                    reader.onload = function (event) {#}
-  {#                        console.log(event.target.result.substr(0, 100))#}
-  {#                        previewArea.append(`#}
-  {#                            <div class="col-15 align-self-center">#}
-  {#                              <img class="img-fluid" src="${event.target.result}" alt="">#}
-  {#                            </div>`)#}
-  {#                    };#}
-  {#                    reader.readAsDataURL(file);#}
-  {#                }#}
-  {#            } else {#}
-  {#                imgInput.val('');#}
-  {#                alert('画像の投稿は5枚までです');#}
-  {#                $('.img-input').append('<p>画像の投稿は5枚までです</p>');#}
-  {#            }#}
-  {#        }#}
-  {#    });#}
-  {#      });#}
-  {#  </script>#}
-
-  {#  {{ picture_form.media }}#}
 {% endblock %}

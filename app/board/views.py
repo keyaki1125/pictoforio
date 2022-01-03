@@ -61,16 +61,16 @@ class PrivatePostDetailUserPassesTestMixin(UserPassesTestMixin):
         return rtn
 
 
-class Home(LoginRequiredMixin, generic.ListView):
-    """ホーム画面は全pictureをランダムに敷き詰めたデザイン"""
-    model = Picture
-    template_name = 'board/home.html'
-    ordering = '?'  # order_byの引数を'?'とするとランダムな順番のレコードを取得できる
-
-    def get_queryset(self):
-        # application_logger.debug('queryset取得')
-        queryset = Picture.objects.filter(post__is_publish=True).order_by('?')
-        return queryset
+# class Home(LoginRequiredMixin, generic.ListView):
+#     """ホーム画面は全pictureをランダムに敷き詰めたデザイン"""
+#     model = Picture
+#     template_name = 'myProject/home.html'
+#     ordering = '?'  # order_byの引数を'?'とするとランダムな順番のレコードを取得できる
+#
+#     def get_queryset(self):
+#         # application_logger.debug('queryset取得')
+#         queryset = Picture.objects.filter(post__is_publish=True).order_by('?')
+#         return queryset
 
 
 # @login_required

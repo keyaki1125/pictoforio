@@ -3,10 +3,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from .views import AboutSite, TermsOfService, PrivacyPolicy, ContactFormView, ContactResultView
+from .views import Home, AboutSite, TermsOfService, PrivacyPolicy, ContactFormView, ContactResultView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', Home.as_view(), name='home'),
     # 同じURLでviewをORしてるのでmyAccountを上にする
     path('account/', include('myAccount.urls')),
     path('account/', include('allauth.urls')),
