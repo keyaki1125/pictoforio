@@ -4,7 +4,7 @@
 {% load account socialaccount %}
 {% load socialaccount %}
 {% providers_media_js %}
-
+{% block title %}{{ block.super }}ログイン{% endblock %}
 {% block content %}
   {#  <div class="jumbotron">#}
   {#    <h1 class="display-4 font-"><small>Welcome to </small><span#}

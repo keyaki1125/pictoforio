@@ -1,18 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}{{ block.super }}フィード{% endblock %}
 {% block content %}
   <div class="content-wrapper">
-    {#    <div class="container-fluid">#}
-{#    <div class="jumbotron text-center" style="background-color: #ffa07a;">#}
-{#      <h1 class="display-4 font-">#}
-{#        <small>Welcome to </small><span style="font-family: 'Pacifico', cursive;">Pictoforio</span>#}
-{#      </h1>#}
-{#      <p class="lead">Pictoforio(ピクトフォリオ)は写真を通じて繋がるSNSサイトです。<br>あなたの写真をみんなとシェアしよう！</p>#}
-      {#        <hr class="my-4">#}
-      {#        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>#}
-      {#        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>#}
-{#    </div>#}
-    {#    </div>#}
     <div class="container">
       {% if post_list %}
         <div class="grid-index">
@@ -30,7 +20,6 @@
                       {{ post.owner.username|slice:':5' }}***さん
                     {% endif %}
                   </a>
-                  {#                  </p>#}
                 </div>
                 {# postからpictureを逆引きした一件目だけ取得。その中のpictureカラムのurl属性を取得 #}
                 {# styleはcssに外だしする予定 #}

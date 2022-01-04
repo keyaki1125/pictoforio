@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}{{ block.super }}投稿詳細{% endblock %}
 {% block content %}
   <div class="content-wrapper">
     <div class="container-md">
@@ -37,7 +38,11 @@
                 <p class="card-text fw-bold col px-0 my-auto">
                   <a class=" text-reset font-weight-bold"
                      href="{% url 'myAccount:user_detail' pk=post.owner.pk %}">
-                    {{ post.owner.email|slice:':3' }}***
+                    {% if post.owner.nickname %}
+                      {{ post.owner.nickname }}
+                    {% else %}
+                      {{ post.owner.username|slice:':5' }}***(ニックネーム未設定)
+                    {% endif %}
                   </a>
                 </p>
                 {% if post.owner == user %}

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}{{ block.super }}投稿削除{% endblock %}
 {% block content %}
   {#    投稿したユーザーしか削除できない制約を追加#}
   {% if object.owner_id == user.id %}

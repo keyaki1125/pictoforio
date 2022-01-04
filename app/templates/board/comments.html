@@ -19,7 +19,13 @@
       <div class="col-7">
         <p class="mb-0">
           <a class="text-reset" href="{% url 'myAccount:user_detail' pk=comment.user.pk %}">
-            <span class="font-weight-bold">{{ comment.user.username|slice:':3' }}***</span></a>
+            <span class="font-weight-bold">
+              {% if comment.user.nickname %}
+                {{ post.owner.nickname }}
+              {% else %}
+                {{ comment.user.username|slice:':5' }}***
+              {% endif %}
+            </span></a>
           <br>
           {{ comment.text | linebreaksbr }}
         </p>
@@ -37,7 +43,7 @@
         {% endif %}
       </div>
     </div>
-  {% empty %}
+    {% empty %}
     <p class="mb-0">コメントはまだありません</p>
   {% endfor %}
 </div>
@@ -49,7 +55,7 @@
     <div class="form-row">
     <textarea name="text" class="form-control-sm col-10" placeholder="コメントする..." required="true"
               id="id_text"></textarea>
-    <button type="submit" class="btn btn-sm btn-info col-2"><i class="far fa-comment-dots"></i></button>
+      <button type="submit" class="btn btn-sm btn-info col-2"><i class="far fa-comment-dots"></i></button>
     </div>
   </form>
 </div>
