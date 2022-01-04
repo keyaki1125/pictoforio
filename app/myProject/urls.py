@@ -7,7 +7,7 @@ from .views import Home, AboutSite, TermsOfService, PrivacyPolicy, ContactFormVi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Home.as_view(), name='home'),
+    path('/', Home.as_view(), name='home'),
     # 同じURLでviewをORしてるのでmyAccountを上にする
     path('account/', include('myAccount.urls')),
     path('account/', include('allauth.urls')),
