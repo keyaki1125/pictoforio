@@ -42,11 +42,11 @@
                 {% bootstrap_form post_form %}
                 <!-- 以下、画像選択エリア -->
                 <div id="picture-area">
-                <p class="mb-0">画像を選択してください</p>
-                <p class="text-muted"><small>
-                  5枚まで選択できます。<br>
-                  画像を削除したい場合は「削除ボタン」にチェックを入れてください。<br>
-                  画像のサイズが大きと送信に時間がかかることがあります。</small></p>
+                  <p class="mb-0">画像を選択してください</p>
+                  <p class="text-muted"><small>
+                    5枚まで選択できます。<br>
+                    画像を削除したい場合は「削除ボタン」にチェックを入れてください。<br>
+                    画像のサイズが大きと送信に時間がかかることがあります。</small></p>
                   {{ formset.management_form }}
                   {% for picture_form in formset %}
                     <div class="input-group pb-3" id="0-id-input-group">
@@ -83,47 +83,10 @@
                              name="{{ picture_form.prefix }}-DELETE"
                              id="id_{{ picture_form.prefix }}-DELETE">
                       <label class="form-check-label" for="id_{{ picture_form.prefix }}-DELETE">削除する</label>
-
                     </div>
                   {% endfor %}
                 </div>
-                {#                {% bootstrap_form picture_form show_label=False form_group_class='form-group img-input' %}#}
-                {#                                {% bootstrap_field picture_form.picture show_label=False form_group_class='form-group img-input' field_class='custom-file' %}#}
-                {#                <div class="form-group img-input row">#}
-                {#                  <div id="file" class="input-group py-3 col col-lg-8">#}
-                {#                    <div class="custom-file">#}
-                {#                      {{ picture_form.picture.errors }}#}
-                {#                      <input type="file" id="id_picture" class="custom-file-input" name="picture" title required multiple/>#}
-                {#                      <label class="custom-file-label" for="id_picture" data-browse="参照">ファイル選択...</label>#}
-                {#                    </div>#}
-                {#                    <div class="input-group-append">#}
-                {#                      <button type="button" class="btn btn-outline-secondary reset">取消</button>#}
-                {#                    </div>#}
-                {#                  </div>#}
-                {#                  <div class="input-group">#}
-                {#                    <div class="custom-file">#}
-                {#                      <input type="file" name="picture" multiple="" accept="image/*" class="custom-file-input" title=""#}
-                {#                             required="" id="id_picture" style="cursor: pointer">#}
-                {#                      <label for="id_picture" class="custom-file-label" data-browse="参照">ファイルを選べ</label>#}
-                {#                    </div>#}
-                {#                    <div class="input-group-append">#}
-                {#                      <button type="button" class="btn btn-outline-secondary input-group-text" id="inputFileReset">取消#}
-                {#                      </button>#}
-                {#                    </div>#}
-                {#                  </div>#}
-                {#                </div>#}
-                {#                <div class="image-preview form-row pb-3">#}
-                {#                  <!-- ここで画像をプレビューする -->#}
-                {#                </div>#}
-
-                {#                  {% for picture_form in formset %}#}
-                {#                    {{ picture_form.as_p }}#}
-                {#                    <hr>#}
-                {#                  {% endfor %}#}
-                {#                {% bootstrap_button '画像を追加' button_type='button' button_class='btn btn-primary' %}#}
-                {#                {% bootstrap_button '投稿する' button_type='submit' button_class='btn btn-outline-primary btn-block' %}#}
-                {#                <button class="btn btn-primary mb-3" id="add" type="button">画像を追加</button>#}
-                <button type="submit" name="btn-publish" class="btn btn-secondary btn-block">公開する</button>
+                <button type="submit" name="btn-publish" class="btn btn-success btn-block">公開する</button>
                 <button type="submit" name="btn-draft" class="btn btn-outline-secondary btn-block">下書き・非公開として保存</button>
               </form>
             </div>
@@ -149,74 +112,6 @@
                   imgPath.attr({'style': 'opacity: 1;'});
               }
           });
-          {#var totalManageElement = $('input#id_picture_set-TOTAL_FORMS');#}
-          {#var currentPictureCount = parseInt(totalManageElement.val());#}
-          {#var maxCountElement = $('input#id_picture_set-MAX_NUM_FORMS');#}
-          {#var maxCount = parseInt(maxCountElement.val());#}
-
-          {#$('button#add').on('click', function () {#}
-          {#    if (currentPictureCount < maxCount) {#}
-          {#        // ファイルインプット要素#}
-          {#        var fileElement = $('<input>', {#}
-          {#            type: 'file',#}
-          {#            "class": 'custom-file-input',#}
-          {#            name: 'picture_set-' + currentPictureCount + '-picture',#}
-          {#            id: 'id_picture_set-' + currentPictureCount + '-picture',#}
-          {#            accept: 'image/*'#}
-          {#        });#}
-          {#        // ファイルインプットラベル#}
-          {#        var fileLabel = $('<label>', {#}
-          {#            "class": 'custom-file-label',#}
-          {#            for: 'id_picture_set-' + currentPictureCount + '-picture',#}
-          {#            "data-browse": '参照',#}
-          {#            text: 'ファイル選択...',#}
-          {#        });#}
-          {##}
-          {#        // 取り消しボタン#}
-          {#        let resetBtn = $('<button>', {#}
-          {#            type: 'button',#}
-          {#            "class": 'btn btn-outline-secondary reset',#}
-          {#            text: '取消',#}
-          {#        })#}
-          {#// 削除チェックボックス#}
-          {#var deleteElement = $('<input>', {#}
-          {#    type: 'checkbox',#}
-          {#    "class": 'form-check-input',#}
-          {#    name: 'picture_set-' + currentPictureCount + '-DELETE',#}
-          {#    id: 'id_picture_set-' + currentPictureCount + '-DELETE',#}
-          {# });#}
-          {#// 削除ラベル#}
-          {#var deleteLabel = $('<label>', {#}
-          {#    "class": 'form-check-label',#}
-          {#    for: 'id_picture_set-' + currentPictureCount + '-DELETE',#}
-          {#    text: '削除',#}
-          {# });#}
-          {##}
-          {#        var inputGroup = $('<div></div>',#}
-          {#            {'class': 'input-group pb-3',#}
-          {#            id: currentPictureCount + '-id-input-group'});#}
-          {#        var customFile = $('<div></div>', {'class': 'custom-file'});#}
-          {#        var inputGroupAppend = $('<div></div>', {'class': 'input-group-append'});#}
-          {##}
-          {#        customFile.append(fileElement, fileLabel);#}
-          {#        inputGroupAppend.append(resetBtn);#}
-          {#        inputGroup.append(customFile, inputGroupAppend);#}
-          {##}
-          {#        $('#picture-area').append(inputGroup);#}
-          {##}
-          {#        currentPictureCount += 1;#}
-          {#        totalManageElement.attr('value', currentPictureCount);#}
-          {#    } else {#}
-          {#        alert('画像は5枚まで！')#}
-          {#    }#}
-          {# });#}
-
-          // 取り消しボタン
-          {#$('.reset').click(function () {#}
-          {#    $(this).parent().prev().children('.custom-file-label').html('ファイル選択...');#}
-          {#    $(this).closest('.input-group').next('.preview-img').empty();#}
-          {#    $(this).closest('.input-group').find('.custom-file-input').val('');#}
-          {# });#}
 
           $('.custom-file-input').on('change', handleFileSelect);
 
@@ -247,95 +142,13 @@
 
               $(this).next('.custom-file-label').html('1個のファイルを選択しました');
           }
+
           $("button[type='submit']").on('click', function () {
-              $(this).css('pointer-events','none');
-              $(this).siblings().css('pointer-events','none');
+              $(this).css('pointer-events', 'none');
+              $(this).siblings().css('pointer-events', 'none');
               $(this).prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
               {#$(this).closest('form').submit();#}
           });
       });
   </script>
-  {#  <script>#}
-  {#      $(document).ready(function () {#}
-  {#          $('.custom-file-input').on('change', handleFileSelect);#}
-  {##}
-  {#          function handleFileSelect(evt) {#}
-  {#              $('#preview').remove();// 繰り返し実行時の処理#}
-  {#              $(this).parents('.input-group').after('<div id="preview" class="form-row"></div>');#}
-  {##}
-  {#              var files = evt.target.files;#}
-  {#              if (files.length <= 5) {#}
-  {#                  for (var i = 0, f; f = files[i]; i++) {#}
-  {#                      var reader = new FileReader();#}
-  {#                      reader.onload = (function (theFile) {#}
-  {#                          return function (e) {#}
-  {#                              if (theFile.type.match('image.*')) {#}
-  {#                                  var $html = ['<div class="col-15"><img class="img-thumbnail" src="', e.target.result, '" title="', escape(theFile.name), '" style="" /><div class="small text-muted text-center">', escape(theFile.name), '</div></div>'].join('');// 画像では画像のプレビューとファイル名の表示#}
-  {#                              } else {#}
-  {#                                  var $html = ['<div class="d-inline-block mr-1"><span class="small">', escape(theFile.name), '</span></div>'].join('');//画像以外はファイル名のみの表示#}
-  {#                              }#}
-  {##}
-  {#                              $('#preview').append($html);#}
-  {#                          };#}
-  {#                      })(f);#}
-  {##}
-  {#                      reader.readAsDataURL(f);#}
-  {#                  }#}
-  {#                  $(this).next('.custom-file-label').html(+files.length + '個のファイルを選択しました');#}
-  {#              } else {#}
-  {#                  $('.custom-file-label').html('ファイル選択...');#}
-  {#                  $('.custom-file-input').val('');#}
-  {#                  alert('画像の投稿は5枚までです');#}
-  {#              }#}
-  {#          }#}
-  {##}
-  {#          //ファイルの取消#}
-  {#          $('.reset').click(function () {#}
-  {#              $(this).parent().prev().children('.custom-file-label').html('ファイル選択...');#}
-  {#              $('#preview').remove();#}
-  {#              $('.custom-file-input').val('');#}
-  {#          })#}
-  {#console.log('ready OK')#}
-  {#    bsCustomFileInput.init();#}
-  {#    $('#inputFileReset').on('click', function () {#}
-  {#        console.log('clicked!');#}
-  {#        let element = $('#id_picture');#}
-  {#        console.log(element.val());#}
-  {#        element.val('');#}
-  {#        console.log(element.val());#}
-  {#        element.trigger('change');#}
-  {#        console.log('triggered!');#}
-  {#    });#}
-  {##}
-  {#    let imgInput = $('#id_picture')#}
-  {#    imgInput.off('change').on('change', function (event) {#}
-  {#        console.log('changed!!')#}
-  {#        let previewArea = $('.image-preview')#}
-  {#        if (event.target.files && event.target.files[0]) {#}
-  {#            previewArea.empty();#}
-  {#            let files = event.target.files;#}
-  {#            if (files.length <= 5) {#}
-  {#                for (let i = 0; i < files.length; i++) {#}
-  {#                    let file = files[i];#}
-  {#                    let reader = new FileReader();#}
-  {#                    reader.onload = function (event) {#}
-  {#                        console.log(event.target.result.substr(0, 100))#}
-  {#                        previewArea.append(`#}
-  {#                            <div class="col-15 align-self-center">#}
-  {#                              <img class="img-fluid" src="${event.target.result}" alt="">#}
-  {#                            </div>`)#}
-  {#                    };#}
-  {#                    reader.readAsDataURL(file);#}
-  {#                }#}
-  {#            } else {#}
-  {#                imgInput.val('');#}
-  {#                alert('画像の投稿は5枚までです');#}
-  {#                $('.img-input').append('<p>画像の投稿は5枚までです</p>');#}
-  {#            }#}
-  {#        }#}
-  {#    });#}
-  {#      });#}
-  {#  </script>#}
-
-  {#  {{ picture_form.media }}#}
 {% endblock %}

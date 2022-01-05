@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}{{ block.super }}投稿削除{% endblock %}
 {% block content %}
-  {#    投稿したユーザーしか削除できない制約を追加#}
-  {% if object.owner_id == user.id %}
-    <form method="POST">
-      {% csrf_token %}
-      <p>「{{ object.content }}」を削除しますか？</p>
-      <button type="submit" class="btn btn-default btn-danger">
-        削除する
-      </button>
-    </form>
-  {% else %}
-    <h1>{{ user.get_username }}さんの投稿ではありません。</h1>
-  {% endif %}
+  <div class="content-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-6 offset-3">
+          {#    投稿したユーザーしか削除できない制約を追加#}
+          {% if object.owner_id == user.id %}
+            <form method="POST">
+              {% csrf_token %}
+              <p>投稿を削除しますか？</p>
+              <button type="submit" class="btn btn-default btn-danger">削除する</button>
+            </form>
+          {% else %}
+            <h1>{{ user.get_username }}さんの投稿ではありません。</h1>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

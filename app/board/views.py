@@ -117,6 +117,8 @@ def post_picture_create(request):
     # success_url = 'board:post_list'
     success_url = reverse_lazy('myAccount:user_detail', kwargs={'pk': request.user.pk})
     success_message = '新規投稿しました'
+    # print('*' * 100)
+    # print(request.META.get('REMOTE_ADDR'))
 
     if request.method == 'POST' and post_form.is_valid():
         post = post_form.save(commit=False)

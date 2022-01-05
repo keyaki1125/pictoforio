@@ -16,10 +16,12 @@
       <!-- .grid-indexでCards全体をネストする -->
       <div class="grid-index">
         <!-- ウインドウサイズごとにグリッドサイズを定義。スマホだと横に1つ、タブレットだと2つ、PCだと3つ並べる -->
-        <div class="grid-sizer col-6 col-lg-4 pb-3 px-2"></div>
+{#        <div class="grid-sizer col-6 col-lg-4 pb-3 px-2"></div>#}
+        <div class="grid-sizer col-4 pb-3 px-2"></div>
         <!-- Card1 -->
         {% for picture in object_list %}
-          <div class="grid-item col-6 col-lg-4 pb-3 px-2">
+{#          <div class="grid-item col-6 col-lg-4 pb-3 px-2">#}
+          <div class="grid-item col-4 pb-3 px-2">
             <div class="card">
               <a href="{% url 'board:post_detail' pk=picture.post_id %}">
                 <img class="img-fluid" src="{{ picture.picture.url }}" alt="">

@@ -35,7 +35,8 @@ MIDDLEWARE += [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
-INTERNAL_IPS = ["172.19.0.1"]
+# INTERNAL_IPS = ["127.0.0.1"]
+INTERNAL_IPS = ["172.18.0.1"]
 
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default="localhost")
 
@@ -97,7 +98,7 @@ LOGGING = {
         # 実行SQL
         'django.db.backends': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': 'INFO',
             'propagate': False,
         },
     }

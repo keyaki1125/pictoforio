@@ -65,7 +65,7 @@
                     </div>
                   {% endfor %}
                 </div>
-                <button type="submit" name="btn-publish" class="btn btn-secondary btn-block">公開する</button>
+                <button type="submit" name="btn-publish" class="btn btn-success btn-block">公開する</button>
                 <button type="submit" name="btn-draft" class="btn btn-outline-secondary btn-block">下書き・非公開として保存</button>
               </form>
             </div>
@@ -115,6 +115,7 @@
               $(this).next('.custom-file-label').html('1個のファイルを選択しました');
           }
           $("button[type='submit']").on('click', function () {
+              // submitボタンのローダー、クリック連打防止
               $(this).css('pointer-events','none');
               $(this).siblings().css('pointer-events','none');
               $(this).prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');

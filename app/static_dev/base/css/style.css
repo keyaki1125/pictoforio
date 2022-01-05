@@ -1,13 +1,13 @@
 html,
 body {
-  height: 100%;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 .content-wrapper {
@@ -15,12 +15,13 @@ html {
 }
 
 .footer {
-position: absolute;
-bottom: 0;
-width: 100%;
-/* Set the fixed height of the footer here */
-/*height: 60px;*/
-/*background-color: #f5f5f5;*/
+    position: absolute;
+    z-index: 3;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    /*height: 60px;*/
+    /*background-color: #f5f5f5;*/
 }
 
 .hover-img {
@@ -220,6 +221,7 @@ width: 100%;
 .activity-li {
     position: relative;
 }
+
 .activity-popup-wrapper {
     display: none;
     position: absolute;
