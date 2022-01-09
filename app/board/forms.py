@@ -9,6 +9,7 @@ from .models import Post, Comment, Picture
 
 class PostCreateForm(forms.ModelForm):
     content = forms.CharField(label='本文',
+                              max_length=1024,
                               widget=forms.Textarea(attrs={'rows': 5,
                                                            'placeholder': '本文を入力...'}))
 

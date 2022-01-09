@@ -1,30 +1,29 @@
 import base64
 import os
-import random, string
-
+import random
+import string
 import uuid
 
+from allauth.account.views import PasswordChangeView
 import boto3
+import cv2
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.http import require_POST, require_GET
+from django_cleanup import cleanup
+import numpy as np
 
 from .forms import ProfileForm
 from .models import Relationship, Activity
 from board.models import Post, Comment, Like, Picture
-
-import cv2
-import numpy as np
-from django_cleanup import cleanup
-from allauth.account.views import PasswordChangeView
 
 User = get_user_model()
 

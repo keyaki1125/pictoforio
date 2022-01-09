@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -12,15 +14,14 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.views.decorators.http import require_POST
-
 from sorl.thumbnail import get_thumbnail, delete
 
-from .forms import PostCreateForm, PostUpdateForm, CommentForm, PictureFormset, CommentDeleteForm, \
+from .forms import (
+    PictureFormset, PostCreateForm, PostUpdateForm, CommentForm, CommentDeleteForm,
     MultiplePictureCreateForm
+)
 from .models import Post, Like, Comment, Picture
 from myAccount.models import Relationship
-
-import logging
 
 application_logger = logging.getLogger('application-logger')
 
@@ -61,60 +62,10 @@ class PrivatePostDetailUserPassesTestMixin(UserPassesTestMixin):
         return rtn
 
 
-# class Home(LoginRequiredMixin, generic.ListView):
-#     """ホーム画面は全pictureをランダムに敷き詰めたデザイン"""
-#     model = Picture
-#     template_name = 'myProject/home.html'
-#     ordering = '?'  # order_byの引数を'?'とするとランダムな順番のレコードを取得できる
-#
-#     def get_queryset(self):
-#         # application_logger.debug('queryset取得')
-#         queryset = Picture.objects.filter(post__is_publish=True).order_by('?')
-#         return queryset
-
-
-# @login_required
-# def post_picture_create2(request):
-#     """
-#     新規投稿ビュー。
-#     今後、投稿に対して複数枚アップできるようにpost本体とpictureでモデルを分けている。
-#     そのため二つのモデルフォーム扱えるよう関数ベースで実装。
-#     """
-#     post_form = PostCreateForm(request.POST or None)
-#     picture_form = MultiplePictureCreateForm(request.POST or None, request.FILES or None)
-#
-#     context = {
-#         'post_form': post_form,
-#         'picture_form': picture_form,
-#     }
-#
-#     if request.method == 'POST':
-#         if post_form.is_valid() and picture_form.is_valid():
-#             post = post_form.save(commit=False)
-#             post.owner = request.user
-#             post.save()
-#             multiple_picture = request.FILES.getlist('picture')
-#             for picture in multiple_picture:
-#                 instance = Picture(picture=picture, post=post, user=request.user)
-#                 instance.save()
-#             messages.success(request, '新規投稿しました')
-#             # picture = picture_form.save(commit=False)
-#             # picture.post = post
-#             # picture.save()
-#             return redirect('board:post_list')
-#         else:
-#             messages.warning(request, 'ERROR!!')
-#             context['post_form'] = post_form
-#             context['picture_form'] = picture_form
-#
-#     return render(request, 'board/post_create.html', context)
-
-
 def post_picture_create(request):
     """新規投稿ビュー。画像を複数投稿するためにインラインフォームセットを利用している。"""
     post_form = PostCreateForm(request.POST or None)
     context = {'post_form': post_form}
-    # success_url = 'board:post_list'
     success_url = reverse_lazy('myAccount:user_detail', kwargs={'pk': request.user.pk})
     success_message = '新規投稿しました'
     # print('*' * 100)

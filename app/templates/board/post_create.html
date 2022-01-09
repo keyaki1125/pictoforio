@@ -84,19 +84,14 @@
               $(this).closest('.input-group').next('.preview-img').empty();
               $(this).closest('.input-group').find('.custom-file-input').val('');
           });
-
           $('.custom-file-input').on('change', handleFileSelect);
 
           function handleFileSelect(evt) {
               console.log(this);
-
-
               var preview = $(this).closest('.input-group').next('.preview-img');
-
               preview.empty();// 繰り返し実行時の処理
 
               var file = evt.target.files[0];
-
               var reader = new FileReader();
 
               reader.onload = (function (theFile) {
