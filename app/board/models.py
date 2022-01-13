@@ -15,12 +15,11 @@ def image_directory_path(instance, filename):
 
 class Post(models.Model):
     owner = models.ForeignKey(User, verbose_name='オーナー', on_delete=models.CASCADE)
-    content = models.TextField(max_length=1024)
+    content = models.TextField(max_length=1000)
+    tags = models.ManyToManyField('Tag', blank=True,)
     is_publish = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    # photo = models.ImageField(upload_to=image_directory_path, verbose_name='投稿画像', blank=True, null=True)
 
     class Meta:
         db_table = 'posts'
@@ -35,7 +34,6 @@ class Picture(models.Model):
     picture = models.ImageField(upload_to=image_directory_path)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # main_flag = models.BooleanField(default=False, verbose_name='メイン画像')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -71,7 +69,7 @@ class Like(models.Model):
 
 
 class Comment(models.Model):
-    text = models.TextField(verbose_name='コメント', max_length=1024)
+    text = models.TextField(verbose_name='コメント', max_length=500)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(verbose_name='投稿日時', auto_now_add=True)
@@ -81,3 +79,15 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class Tag(models.Model):
+    tag_name = models.CharField('タグ', max_length=50)
+    # create_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='tags')
+    timestamp = models.DateTimeField('タイムスタンプ', auto_now_add=True)
+
+    class Meta:
+        db_table = 'tags'
+
+    def __str__(self):
+        return self.tag_name

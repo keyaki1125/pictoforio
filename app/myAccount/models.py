@@ -47,9 +47,9 @@ class CustomUserManager(UserManager):
 
 class MyUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
-    nickname = models.CharField(_('nickname'), max_length=50, blank=True)
-    introduce = models.TextField(verbose_name='自己紹介', blank=True, max_length=1024)
-    avatar = models.ImageField(max_length=255, upload_to=image_directory_path, verbose_name='プロフィール画像', blank=True, null=True)
+    nickname = models.CharField('ニックネーム', max_length=50, blank=True)
+    introduce = models.TextField('自己紹介', blank=True, max_length=1024)
+    avatar = models.ImageField('プロフィール画像', max_length=255, upload_to=image_directory_path, blank=True, null=True)
 
     is_staff = models.BooleanField(
         _('staff status'), default=False,
@@ -62,6 +62,10 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
             'Designates whether this user should be treated as active. '
             'Unselect this instead of deleting accounts.'
         ),
+    )
+    is_guest = models.BooleanField(
+        'ゲストステータス', default=False,
+        help_text='ゲストユーザーは利用範囲が制限されます。'
     )
     create_at = models.DateTimeField(auto_now_add=True)  # 追加時の日時を登録
     update_at = models.DateTimeField(auto_now=True)  # 追加、更新時の日時を登録

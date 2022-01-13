@@ -4,13 +4,13 @@ import random
 import string
 import uuid
 
-from allauth.account.views import PasswordChangeView
+from allauth.account.views import EmailView, PasswordChangeView, PasswordResetView
 import boto3
 import cv2
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -26,6 +26,14 @@ from .models import Relationship, Activity
 from board.models import Post, Comment, Like, Picture
 
 User = get_user_model()
+
+
+class GuestUserPermissionMixin(UserPassesTestMixin):
+    raise_exception = True
+
+    def test_func(self):
+        user = self.request.user
+        return not user.is_guest
 
 
 class UserList(LoginRequiredMixin, generic.ListView):
@@ -91,6 +99,11 @@ class ProfileEdit(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
     form_class = ProfileForm
     success_message = 'プロフィールを編集しました'
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
     def get_success_url(self):
         return reverse('myAccount:user_detail', kwargs={'pk': self.object.pk})
 
@@ -124,15 +137,26 @@ class ProfileEdit(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
 #         return context
 
 
-class MyPasswordChange(LoginRequiredMixin, PasswordChangeView):
+class MyEmailView(GuestUserPermissionMixin, LoginRequiredMixin, EmailView):
+    # allauthのオーバーライド。ゲストユーザーのアクセス制限。
+    pass
+
+
+class MyPasswordChange(GuestUserPermissionMixin, LoginRequiredMixin, PasswordChangeView):
     """
     パスワード変更ビュー
     allauthで用意されているクラスのsuccess_urlをカスタムしている。
+    ゲストユーザーのアクセス制限。
     """
 
     def get_success_url(self):
         success_url = reverse('myAccount:user_detail', kwargs={'pk': self.request.user.pk})
         return success_url
+
+
+class MyPasswordReset(GuestUserPermissionMixin, LoginRequiredMixin, PasswordResetView):
+    # allauthのオーバーライド。ゲストユーザーのアクセス制限。
+    pass
 
 
 @require_POST

@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
@@ -14,9 +15,27 @@ class ProfileForm(forms.ModelForm):
                                                              'placeholder': '自己紹介文を入力...'}))
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
         super(ProfileForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
+
+    def clean(self):
+        user = self.request.user
+        if user.is_guest:
+            raise ValidationError('ゲストユーザーは登録情報の編集が制限されます。')
+
+    # def clean_nickname(self):
+    #     user = self.request.user
+    #
+    #     if user.is_guest:
+    #         raise ValidationError('ゲストユーザーは登録情報の編集が制限されます。')
+    #
+    # def clean_introduce(self):
+    #     user = self.request.user
+    #
+    #     if user.is_guest:
+    #         raise ValidationError('ゲストユーザーは登録情報の編集が制限されます。')
 
     class Meta:
         model = User

@@ -15,9 +15,10 @@
                     enctype="multipart/form-data">
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                <button class='btn btn-outline-success' type="submit">更新</button>
-                <a href="{% url 'account_email' %}" class="btn btn-primary">メールアドレス変更</a>
-                <a href="{% url 'account_change_password' %}" class="btn btn-danger">パスワード変更</a>
+                <p class="text-muted"><small>※ ゲストユーザーの方は登録情報の編集が制限されます</small></p>
+                <button class='btn btn-success' type="submit">更新</button>
+                <a href="{% url 'myAccount:email_change' %}" class="btn btn-secondary {% if user.is_guest %}disabled{% endif %}">メールアドレス変更</a>
+                <a href="{% url 'myAccount:my_password_change' %}" class="btn btn-secondary {% if user.is_guest %}disabled{% endif %}">パスワード変更</a>
               </form>
             </div>
           </div>

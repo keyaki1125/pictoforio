@@ -1,6 +1,5 @@
 from allauth.account.models import EmailAddress
 from allauth.account.signals import email_confirmed
-
 from django.dispatch import receiver
 from django.db.models import signals
 
