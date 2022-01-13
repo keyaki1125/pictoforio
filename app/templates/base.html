@@ -131,23 +131,27 @@
     </div>
   </nav>
 </header>
-{% if messages %}
-  <ul class="list-unstyled">
-    {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </li>
-    {% endfor %}
-  </ul>
-{% endif %}
-{% block content %}
-{% endblock content %}
+<main>
+  {% if messages %}
+    <div class="container">
+      <ul class="list-unstyled">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  {% block content %}
+  {% endblock content %}
+</main>
 <footer class="footer mt-auto py-3 bg-light">
   <div class="container">
-{#    <span class="text-muted">フッターのコンテンツをここに置きます。</span>#}
+    {#    <span class="text-muted">フッターのコンテンツをここに置きます。</span>#}
     <div class="d-flex align-items-center justify-content-end text-muted">
       <div class="pl-3"><a class="text-muted" href="{% url 'about_site' %}"><small>このサイトについて</small></a></div>
       <div class="pl-3"><a class="text-muted" href="{% url 'terms_of_service' %}"><small>利用規約</small></a></div>

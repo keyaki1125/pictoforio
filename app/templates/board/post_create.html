@@ -2,7 +2,7 @@
 {% block title %}{{ block.super }}新規投稿{% endblock %}
 {% block content %}
   <div class="content-wrapper">
-    <div class="container-md">
+    <div class="container">
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
           <div class="card">
@@ -42,10 +42,10 @@
                 {% bootstrap_form post_form %}
                 <!-- 以下、画像選択エリア -->
                 <div id="picture-area">
-                <p class="mb-0">画像を選択してください</p>
-                <p class="text-muted"><small>
-                  5枚まで選択できます。「取消ボタン」を押すことで入力を取り消すことができます。<br>
-                  画像のサイズが大きと送信に時間がかかることがあります。</small></p>
+                  <p class="mb-0">画像を選択してください</p>
+                  <p class="text-muted"><small>
+                    5枚まで選択できます。「取消ボタン」を押すことで入力を取り消すことができます。<br>
+                    画像のサイズが大きと送信に時間がかかることがあります。</small></p>
                   {{ formset.management_form }}
                   {% for picture_form in formset %}
                     <div class="input-group pb-3" id="0-id-input-group">
@@ -109,12 +109,16 @@
 
               $(this).next('.custom-file-label').html('1個のファイルを選択しました');
           }
+
           $("button[type='submit']").on('click', function () {
-              // submitボタンのローダー、クリック連打防止
-              $(this).css('pointer-events','none');
-              $(this).siblings().css('pointer-events','none');
-              $(this).prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
-              {#$(this).closest('form').submit();#}
+              var contentVal = String($('input[name=content]').val());
+              if (contentVal == '' || contentVal.length > 1000) {
+                  // submitボタンのローダー、クリック連打防止
+                  $(this).css('pointer-events', 'none');
+                  $(this).siblings().css('pointer-events', 'none');
+                  $(this).prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+                  {#$(this).closest('form').submit();#}
+              }
           });
       });
   </script>

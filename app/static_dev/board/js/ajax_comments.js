@@ -2,6 +2,7 @@ $(document).ready(function (event) {
     $(document).on('submit', '#ajax-comment', function (event) {
         event.preventDefault();
         let post_id = parseInt($(this).attr('name'), 10)
+        console.log('post_id = '+ post_id);
         console.log($(this).serialize());
         $.ajax({
             type: 'POST',

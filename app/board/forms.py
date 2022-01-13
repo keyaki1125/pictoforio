@@ -9,7 +9,7 @@ from .models import Post, Comment, Picture
 
 class PostCreateForm(forms.ModelForm):
     content = forms.CharField(label='本文',
-                              max_length=1024,
+                              max_length=1000,
                               widget=forms.Textarea(attrs={'rows': 5,
                                                            'placeholder': '本文を入力...'}))
 
@@ -108,6 +108,9 @@ class PostUpdateForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    # content = forms.CharField(max_length=500,
+    #                           widget=forms.Textarea(attrs={'placeholder': 'コメントする...'}))
+
     class Meta:
         model = Comment
         fields = ('text',)
@@ -115,6 +118,7 @@ class CommentForm(forms.ModelForm):
 
 
 class CommentDeleteForm(forms.ModelForm):
+
     class Meta:
         model = Comment
         fields = ()

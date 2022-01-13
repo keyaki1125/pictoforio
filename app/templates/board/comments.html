@@ -17,7 +17,7 @@
       </div>
       {#            <p class="col-2">{{ comment.user.username|slice:':3' }}***</p>#}
       <div class="col-7">
-        <p class="mb-0">
+        <p class="text-break mb-0">
           <a class="text-reset" href="{% url 'myAccount:user_detail' pk=comment.user.pk %}">
             <span class="font-weight-bold">
               {% if comment.user.nickname %}
@@ -54,7 +54,7 @@
     <label class="sr-only" for="id_text">コメント</label>
     <div class="form-row">
     <textarea name="text" class="form-control-sm col-10" placeholder="コメントする..." required="true"
-              id="id_text"></textarea>
+              id="id_text" maxlength="500"></textarea>
       <button type="submit" class="btn btn-sm btn-info col-2"><i class="far fa-comment-dots"></i></button>
     </div>
   </form>
