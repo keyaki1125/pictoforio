@@ -21,7 +21,7 @@ from django.views.decorators.http import require_POST, require_GET
 from django_cleanup import cleanup
 import numpy as np
 
-from .forms import ProfileForm
+from .forms import ProfileForm, MyResetPasswordForm
 from .models import Relationship, Activity
 from board.models import Post, Comment, Like, Picture
 
@@ -154,9 +154,9 @@ class MyPasswordChange(GuestUserPermissionMixin, LoginRequiredMixin, PasswordCha
         return success_url
 
 
-class MyPasswordReset(GuestUserPermissionMixin, LoginRequiredMixin, PasswordResetView):
+class MyPasswordReset(PasswordResetView):
     # allauthのオーバーライド。ゲストユーザーのアクセス制限。
-    pass
+    form_class = MyResetPasswordForm
 
 
 @require_POST

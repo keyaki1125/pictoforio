@@ -230,3 +230,5 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+GUEST_USER_EMAIL = 'guestguest@mail.com'

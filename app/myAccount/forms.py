@@ -1,4 +1,6 @@
+from allauth.account.forms import ResetPasswordForm
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 
@@ -40,3 +42,11 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('nickname', 'introduce',)
+
+
+class MyResetPasswordForm(ResetPasswordForm):
+    def clean_email(self):
+        super().clean_email()
+        if self.cleaned_data['email'] == settings.GUEST_USER_EMAIL:
+            raise forms.ValidationError('ゲストユーザーはパスワードをリセットできません')
+        return self.cleaned_data['email']
