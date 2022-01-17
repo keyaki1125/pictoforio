@@ -21,7 +21,7 @@
           <a class="text-reset" href="{% url 'myAccount:user_detail' pk=comment.user.pk %}">
             <span class="font-weight-bold">
               {% if comment.user.nickname %}
-                {{ post.owner.nickname }}
+                {{ comment.user.nickname }}
               {% else %}
                 {{ comment.user.username|slice:':5' }}***
               {% endif %}
