@@ -112,7 +112,7 @@
 
           $("button[type='submit']").on('click', function () {
               var contentVal = String($('input[name=content]').val());
-              if (contentVal == '' || contentVal.length > 1000) {
+              if (contentVal != '' || contentVal.length <= 1000) {
                   // submitボタンのローダー、クリック連打防止
                   $(this).css('pointer-events', 'none');
                   $(this).siblings().css('pointer-events', 'none');
