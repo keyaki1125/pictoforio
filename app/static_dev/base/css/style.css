@@ -15,9 +15,9 @@ html {
 }
 
 .footer {
-    position: absolute;
-    z-index: 3;
-    bottom: 0;
+    /*position: absolute;*/
+    /*z-index: 3;*/
+    /*bottom: 0;*/
     width: 100%;
     /* Set the fixed height of the footer here */
     /*height: 60px;*/
