@@ -34,132 +34,134 @@
   <title>{% block title %}Pictoforio: {% endblock %}</title>
 </head>
 <body>
-<header class="mb-4">
-  <nav class="navbar navbar-expand navbar-dark bg-dark d-flex justify-content-between">
-    <div class="container">
-      <div>
-        <a class="navbar-brand" href="{% url 'home' %}">
-          <h3 class="mb-0" style="font-family: 'Pacifico', cursive;">Pictoforio</h3>
-        </a>
-      </div>
-      {#      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">#}
-      {#        <span class="navbar-toggler-icon"></span>#}
-      {#      </button>#}
-      <div class="d-flex justify-content-end" id="navbarSupportedContent">
-        <ul class="nav-ul navbar-nav d-flex align-items-center">
-          {% if user.is_authenticated %}
-            {#            {% load myAccount_tags %}#}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'board:post_list' %}" data-toggle="tooltip" data-placement="bottom"
-                 title="フィード">
-                <i class="fas fa-home img-fluid" style="width: 30px"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-center" href="{% url 'board:create' %}" data-toggle="tooltip"
-                 data-placement="bottom" title="新規投稿">
-                <i class="far fa-plus-square img-fluid" style="width: 30px"></i>
-              </a>
-            </li>
-            <li class="nav-item activity-li">
-              {% if activities %}
-                <button id="activity-btn" class="btn nav-link text-center" data-toggle="tooltip"
-                        data-placement="left" title="新着あり" style="color: #e8383d">
-                  <i class="fas fa-heart img-fluid" style="width: 30px"></i>
-                </button>
-              {% else %}
-                <button id="activity-btn" class="btn nav-link text-center" data-toggle="tooltip"
-                        data-placement="left" title="アクティビティ">
-                  <i class="far fa-heart img-fluid" style="width: 30px"></i>
-                </button>
-              {% endif %}
-              <div class="activity-popup-wrapper">
-                {% include 'account/activity.html' %}
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'myAccount:user_list' %}" data-toggle="tooltip" data-placement="bottom"
-                 title="ユーザー一覧">
-                <i class="fas fa-users img-fluid" style="width: 30px"></i>
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-              {#            <button class="nav-link btn dropdown-toggle" type="button" id="navbarDropdownMenuLink"#}
-              {#                    data-toggle="dropdown">#}
-              {#              {% if target_user.avatar %}#}
-              {#                <img class="rounded img-fluid"#}
-              {#                     src="{{ target_user.avatar.url }}" id="avatar-image" alt="avatar_image">#}
-              {#              {% else %}#}
-              {#                <i class="far fa-meh rounded img-fluid" style="height: 100%"></i>#}
-              {#              {% endif %}#}
-              {#            </button>#}
-              <a class="p-1 nav-link dropdown-toggle text-center" href="#" id="navbarDropdownMenuLink" role="button"
-                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {% if user.avatar %}
-                  <img class="img-fluid"
-                       src="{{ user.avatar.url }}" id="avatar-image-nav" alt="avatar_image"
-                       style="width: 30px;border-radius: 50%">
+<div class="wrapper">
+  <header class="mb-4">
+    <nav class="navbar navbar-expand navbar-dark bg-dark d-flex justify-content-between">
+      <div class="container">
+        <div>
+          <a class="navbar-brand" href="{% url 'home' %}">
+            <h3 class="mb-0" style="font-family: 'Pacifico', cursive;">Pictoforio</h3>
+          </a>
+        </div>
+        {#      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">#}
+        {#        <span class="navbar-toggler-icon"></span>#}
+        {#      </button>#}
+        <div class="d-flex justify-content-end" id="navbarSupportedContent">
+          <ul class="nav-ul navbar-nav d-flex align-items-center">
+            {% if user.is_authenticated %}
+              {#            {% load myAccount_tags %}#}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'board:post_list' %}" data-toggle="tooltip" data-placement="bottom"
+                   title="フィード">
+                  <i class="fas fa-home img-fluid" style="width: 30px"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-center" href="{% url 'board:create' %}" data-toggle="tooltip"
+                   data-placement="bottom" title="新規投稿">
+                  <i class="far fa-plus-square img-fluid" style="width: 30px"></i>
+                </a>
+              </li>
+              <li class="nav-item activity-li">
+                {% if activities %}
+                  <button id="activity-btn" class="btn nav-link text-center" data-toggle="tooltip"
+                          data-placement="left" title="新着あり" style="color: #e8383d">
+                    <i class="fas fa-heart img-fluid" style="width: 30px"></i>
+                  </button>
                 {% else %}
-                  <i class="far fa-meh rounded img-fluid" style="width: 30px;border-radius: 50%"></i>
+                  <button id="activity-btn" class="btn nav-link text-center" data-toggle="tooltip"
+                          data-placement="left" title="アクティビティ">
+                    <i class="far fa-heart img-fluid" style="width: 30px"></i>
+                  </button>
                 {% endif %}
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'myAccount:user_detail' pk=user.pk %}">ユーザーページ</a>
-                <a class="dropdown-item" href="{% url 'board:private_post_list' pk=user.pk %}">下書き・非公開投稿</a>
-                <a class="dropdown-item" href="{% url 'board:like_post_list' %}">いいね！した投稿</a>
-                <a class="dropdown-item" href="{% url 'account_logout' %}">ログアウト</a>
-                <div class="dropdown-divider"></div>
-                <p class="dropdown-item-text mb-0">{{ user.email }}</p>
-              </div>
+                <div class="activity-popup-wrapper">
+                  {% include 'account/activity.html' %}
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'myAccount:user_list' %}" data-toggle="tooltip" data-placement="bottom"
+                   title="ユーザー一覧">
+                  <i class="fas fa-users img-fluid" style="width: 30px"></i>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                {#            <button class="nav-link btn dropdown-toggle" type="button" id="navbarDropdownMenuLink"#}
+                {#                    data-toggle="dropdown">#}
+                {#              {% if target_user.avatar %}#}
+                {#                <img class="rounded img-fluid"#}
+                {#                     src="{{ target_user.avatar.url }}" id="avatar-image" alt="avatar_image">#}
+                {#              {% else %}#}
+                {#                <i class="far fa-meh rounded img-fluid" style="height: 100%"></i>#}
+                {#              {% endif %}#}
+                {#            </button>#}
+                <a class="p-1 nav-link dropdown-toggle text-center" href="#" id="navbarDropdownMenuLink" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {% if user.avatar %}
+                    <img class="img-fluid"
+                         src="{{ user.avatar.url }}" id="avatar-image-nav" alt="avatar_image"
+                         style="width: 30px;border-radius: 50%">
+                  {% else %}
+                    <i class="far fa-meh rounded img-fluid" style="width: 30px;border-radius: 50%"></i>
+                  {% endif %}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="{% url 'myAccount:user_detail' pk=user.pk %}">ユーザーページ</a>
+                  <a class="dropdown-item" href="{% url 'board:private_post_list' pk=user.pk %}">下書き・非公開投稿</a>
+                  <a class="dropdown-item" href="{% url 'board:like_post_list' %}">いいね！した投稿</a>
+                  <a class="dropdown-item" href="{% url 'account_logout' %}">ログアウト</a>
+                  <div class="dropdown-divider"></div>
+                  <p class="dropdown-item-text mb-0">{{ user.email }}</p>
+                </div>
+              </li>
+              {#          {% endif %}#}
+              {#        </ul>#}
+              {#        <ul class="navbar-nav navbar-right">#}
+              {#          {% if user.is_authenticated %}#}
+              {#            <li class="nav-item">#}
+              {#            </li>#}
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_signup' %}">Sign in</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    {% if messages %}
+      <div class="container">
+        <ul class="list-unstyled">
+          {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </li>
-            {#          {% endif %}#}
-            {#        </ul>#}
-            {#        <ul class="navbar-nav navbar-right">#}
-            {#          {% if user.is_authenticated %}#}
-            {#            <li class="nav-item">#}
-            {#            </li>#}
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'account_signup' %}">Sign in</a>
-            </li>
-          {% endif %}
+          {% endfor %}
         </ul>
       </div>
-    </div>
-  </nav>
-</header>
-<main>
-  {% if messages %}
+    {% endif %}
+    {% block content %}
+    {% endblock content %}
+  </main>
+  <footer class="footer mt-auto py-3 bg-light">
     <div class="container">
-      <ul class="list-unstyled">
-        {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </li>
-        {% endfor %}
-      </ul>
+      {#    <span class="text-muted">フッターのコンテンツをここに置きます。</span>#}
+      <div class="d-flex align-items-center justify-content-end text-muted">
+        <div class="pl-3"><a class="text-muted" href="{% url 'about_site' %}"><small>このサイトについて</small></a></div>
+        <div class="pl-3"><a class="text-muted" href="{% url 'terms_of_service' %}"><small>利用規約</small></a></div>
+        <div class="pl-3"><a class="text-muted" href="{% url 'privacy_policy' %}"><small>プライバシーポリシー</small></a></div>
+        <div class="pl-3"><a class="text-muted" href="{% url 'contact_form' %}"><small>お問合せ</small></a></div>
+      </div>
     </div>
-  {% endif %}
-  {% block content %}
-  {% endblock content %}
-</main>
-<footer class="footer mt-auto py-3 bg-light">
-  <div class="container">
-    {#    <span class="text-muted">フッターのコンテンツをここに置きます。</span>#}
-    <div class="d-flex align-items-center justify-content-end text-muted">
-      <div class="pl-3"><a class="text-muted" href="{% url 'about_site' %}"><small>このサイトについて</small></a></div>
-      <div class="pl-3"><a class="text-muted" href="{% url 'terms_of_service' %}"><small>利用規約</small></a></div>
-      <div class="pl-3"><a class="text-muted" href="{% url 'privacy_policy' %}"><small>プライバシーポリシー</small></a></div>
-      <div class="pl-3"><a class="text-muted" href="{% url 'contact_form' %}"><small>お問合せ</small></a></div>
-    </div>
-  </div>
-</footer>
+  </footer>
+</div>
 <!-- Optional JavaScript -->
 <!-- fontawesome -->
 <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
