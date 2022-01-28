@@ -9,9 +9,11 @@ User = get_user_model()
 
 class ProfileForm(forms.ModelForm):
     nickname = forms.CharField(label='ニックネーム',
+                               required=False,
                                max_length=50,
                                widget=forms.TextInput(attrs={'placeholder': '50文字以内で入力...'}))
     introduce = forms.CharField(label='自己紹介',
+                                required=False,
                                 max_length=1024,
                                 widget=forms.Textarea(attrs={'rows': 5,
                                                              'placeholder': '自己紹介文を入力...'}))
