@@ -11,19 +11,19 @@ from ..models import Post, Comment, Picture
 User = get_user_model()
 
 
-class TestHomeView(TestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.email = 'test@mail.com'
-        cls.password = 'test5232'
-        cls.user = User.objects.create_user(email=cls.email, password=cls.password)
-
-    def test_home_get(self):
-        self.client.login(email=self.email, password=self.password)
-        response = self.client.get(reverse('board:home'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'board/home.html')
+# class TestHomeView(TestCase):
+#     @classmethod
+#     def setUpClass(cls):
+#         super().setUpClass()
+#         cls.email = 'test@mail.com'
+#         cls.password = 'test5232'
+#         cls.user = User.objects.create_user(email=cls.email, password=cls.password)
+#
+#     def test_home_get(self):
+#         self.client.login(email=self.email, password=self.password)
+#         response = self.client.get(reverse('board:home'))
+#         self.assertEqual(response.status_code, 200)
+#         self.assertTemplateUsed(response, 'board/home.html')
 
 
 class TestPostPictureCreateView(TestCase):
@@ -65,7 +65,7 @@ class TestPostPictureCreateView(TestCase):
                                           },
                                     follow=True)
         print(str(response.content, encoding='utf8'))
-        self.assertRedirects(response, reverse('board:post_list'), status_code=302)
+        self.assertRedirects(response, reverse('myAccount:user_detail', kwargs={'pk': self.user.pk}), status_code=302)
 
 
 class TestPostListView(TestCase):

@@ -3,8 +3,7 @@ from django.urls import resolve, Resolver404
 
 from ..views import (
     ProfileEdit, profile_image_upload, UserList, UserDetail, UserPictureList,
-    add_or_del_relationship, ajax_activity_watched, MyPasswordChange, TermsOfService, PrivacyPolicy,
-
+    add_or_del_relationship, ajax_activity_watched, MyPasswordChange
 )
 
 

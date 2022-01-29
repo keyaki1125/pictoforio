@@ -12,7 +12,7 @@ urlpatterns = [
     path('<int:pk>/picture_list', views.UserPictureList.as_view(), name='picture_list'),
     path('follow', views.add_or_del_relationship, name='follow'),
     path('activity_watched', views.ajax_activity_watched, name='activity_watched'),
-    path('email/', views.MyEmailView.as_view(), name='email_change'),
-    path('password/change/', views.MyPasswordChange.as_view(), name='my_password_change'),
-    path('password/reset/', views.MyPasswordReset.as_view(), name='my_password_reset'),
+    path('email', views.MyEmailView.as_view(), name='email_change'),
+    path('password/change', views.MyPasswordChange.as_view(), name='my_password_change'),
+    path('password/reset', views.MyPasswordReset.as_view(), name='my_password_reset'),
     ]

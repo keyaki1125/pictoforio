@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import resolve, Resolver404
 
 from ..views import (
-    Home, PostList, LikePostList, PrivatePostList, PostDetailAndComments,
+    PostList, LikePostList, PrivatePostList, PostDetailAndComments,
     post_picture_create, post_update, PostDelete, add_or_del_like, comment,
     ajax_comment_delete,
 )
@@ -15,10 +15,6 @@ class TestUrls(TestCase):
     def test_not_exist_url(self):
         with self.assertRaises(Resolver404):
             resolve('/board/post/notexist')
-
-    def test_home_url_is_exist(self):
-        view = resolve('/board/home')
-        self.assertEqual(view.func.view_class, Home)
 
     def test_list_url_is_exist(self):
         view = resolve('/board/post/list')

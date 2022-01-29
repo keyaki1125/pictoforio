@@ -92,7 +92,7 @@ class PictureModelTest(TestCase):
         saved_picture = Picture.objects.all()
         actual_picture = saved_picture[0]
 
-        self.assertLessEqual(actual_picture.picture.width, 750)
+        self.assertLessEqual(actual_picture.picture.width, 1000)
 
 
 class LikeModelTest(TestCase):
